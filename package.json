@@ -4,14 +4,20 @@
 	"type": "module",
 	"scripts": {
 		"check": "tsc --noEmit",
+		"gen": "rm -rf src/gen && buf generate",
 		"build": "bun ./scripts/build.ts"
 	},
 	"devDependencies": {
+		"@bufbuild/buf": "^1.69.0",
+		"@bufbuild/protoc-gen-es": "^2.12.0",
 		"@types/bun": "latest",
 		"prettier": "^3.8.3",
 		"prettier-plugin-jsdoc": "^1.8.0"
 	},
 	"peerDependencies": {
 		"typescript": "^5"
+	},
+	"dependencies": {
+		"@bufbuild/protobuf": "^2.12.0"
 	}
 }

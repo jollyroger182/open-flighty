@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "entities/flight.proto";
+
+message Entity {
+  Flight flight = 15;
+}

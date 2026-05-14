@@ -1,0 +1,172 @@
+syntax = "proto3";
+
+import "common.proto";
+
+message Flight {
+  string     id          = 1;
+  FlightCore core        = 2;
+  bool       is_archived = 3;
+  // field 4: [inferred] unknown
+  bool is_my_flight = 5;
+  // field 6: [inferred] unknown
+  int32 import_source = 7;   // [inferred] how flight was added
+  // field 8: [inferred] unknown
+  string user_id     = 9;
+  string sharing_url = 10;
+  // fields 11–12: [inferred] unknown
+  Timestamp deleted_at = 13;
+}
+
+message FlightCore {
+  string       id        = 1;
+  DepartureLeg departure = 2;
+  ArrivalLeg   arrival   = 3;
+  // field 4: [inferred] airline
+  bool               is_cancelled = 5;
+  repeated Codeshare codeshares   = 6;
+  Aircraft           aircraft     = 7;
+  // string             callsign     = 8;   // ATC callsign e.g. "CPA356"
+  // field 9: [inferred] unknown (observed 1)
+  repeated Flight      inbound_flights = 10;
+  repeated FlightEvent events          = 11;
+  DelayForecast        delay_forecast  = 12;
+  Timestamp            created         = 13;
+  Timestamp            last_updated    = 14;
+  // field 15: [inferred] unknown
+  string number      = 16;  // e.g. "356" (no airline prefix)
+  int32  distance_km = 17;
+  FaaTmi faa_tmi     = 18;
+  // fields 19–20: [inferred] unknown
+  // string airline_id = 21;  // reference to Airline.id
+}
+
+message DepartureLeg {
+  // field 1: [inferred] airport
+  string      terminal = 2;
+  string      gate     = 3;
+  FlightTimes times    = 4;
+  // fields 5–7: [inferred] unknown
+  GateWindow  check_in = 8;   // check-in desk open/close
+  WeatherInfo weather  = 9;
+  // field 10: [inferred] unknown
+  // string airport_id = 11;  // reference to Airport.id
+}
+
+message ArrivalLeg {
+  // fields 1: [inferred] scheduled airport
+  // fields 2: [inferred] actual airport
+  string      terminal     = 3;
+  string      gate         = 4;
+  string      baggage_belt = 5;
+  WeatherInfo weather      = 6;
+  FlightTimes times        = 7;
+  // fields 8–12: [inferred] unknown
+  // string scheduled_arrival_airport_id = 13;  // original destination Airport.id
+  // string arrival_airport_id           = 14;  // actual destination (differs if diverted)
+}
+
+message Codeshare {
+  // field 1: [inferred] airline
+  string number            = 2;  // e.g. "356"
+  bool   operates_aircraft = 3;  // true if this airline operates the actual aircraft
+  // string airline_id        = 4;  // reference to Airline.id
+}
+
+message Aircraft {
+  string tail_number        = 1;   // e.g. "B-LBE"
+  string model_name         = 2;   // e.g. "Airbus A330-300"
+  int32  range_km           = 3;   // type range
+  int32  cruising_speed_kmh = 4;   // type cruise speed
+  string iata_type          = 5;   // e.g. "333"
+  string icao_type          = 6;   // e.g. "A333"
+  string first_flight       = 7;   // ISO date e.g. "2014-05-19"
+  // field 8: [inferred] unknown int (observed value 11)
+  string plane_name           = 9;   // [inferred] livery name e.g. "Cathay Spirit"
+  string registration_country = 10;  // 2-letter e.g. "HK"
+  string manufacturer         = 11;  // e.g. "Airbus"
+  string aircraft_type_id     = 12;  // reference to AircraftType.id
+  string model_name_2         = 13;   // e.g. "Airbus A330-300"
+}
+
+message DelayForecast {
+  int32 observations       = 1;
+  int32 delay_mean_minutes = 2;
+}
+
+message FaaTmi {
+  // FAA Traffic Management Initiative
+  int32     code   = 1;
+  Timestamp start  = 2;
+  Timestamp end    = 3;
+  string    reason = 4;  // e.g. "Weather", "Volume"
+}
+
+// TODO
+message FlightTimes {
+  Timestamp scheduled = 1;
+  Timestamp estimated = 2;
+  // fields 3–5: present in wire data, ignored by TS client
+  // [inferred] possibly runway_off (3), airborne (4), runway_on (5)
+  Timestamp actual_gate = 6;  // gate-out (departure) or gate-in (arrival)
+}
+
+message GateWindow {
+  Timestamp open  = 1;
+  Timestamp close = 2;
+}
+
+message WeatherInfo {
+  int32 temperature_c  = 1;
+  int32 condition_code = 2;   // OpenWeatherMap code e.g. 802
+  // field 3: [inferred] unknown int
+  int32        unknown_4   = 4;
+  string       condition   = 5;   // e.g. "Scattered Clouds"
+  WeatherAlert alert       = 6;   // present when severe weather active
+  int32        unknown_7   = 7;	  // always 0?
+  Timestamp    observed_at = 8;
+}
+
+message WeatherAlert {
+  string title       = 1;   // e.g. "Lightning Nearby"
+  string description = 2;   // full advisory text
+  int32  severity    = 3;   // [inferred] e.g. 20 = moderate
+}
+
+// flight events
+
+message FlightEvent {
+  Timestamp         recorded_at         = 1;
+  BaggageBeltChange baggage_belt_change = 2;
+  // fields 2–4: [inferred] unknown
+  OoiEvent   ooi_event   = 5;   // gate-out or gate-in timestamp
+  GateChange gate_change = 6;   // terminal / gate reassignment
+  // fields 7–8: [inferred] unknown
+  TimingChange   timing_change   = 9;
+  TailAssignment tail_assignment = 10;
+}
+
+message BaggageBeltChange {
+  string baggage_belt = 1;
+}
+
+message OoiEvent {
+  int32     which = 1;  // 1 = actualGateOut, 4 = actualGateIn
+  Timestamp at    = 2;
+}
+
+message GateChange {
+  bool   is_arrival = 1;
+  string terminal   = 2;
+  string gate       = 3;
+}
+
+message TimingChange {
+  bool      is_arrival   = 1;
+  bool      is_estimated = 2;
+  bool      unknown_3    = 3;
+  Timestamp at           = 4;
+}
+
+message TailAssignment {
+  string tail_number = 1;
+}

@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+import "entities/flight.proto";
+
+message SearchRequest {
+  ByNumber number = 1;
+  ByRoute  route  = 2;
+  string   date   = 3;
+  string   mode   = 4; // ROUTE_GUIDED (if city involved?), FLIGHT_NUMBER, ROUTE
+}
+
+message ByNumber {
+  string airline_id = 1;
+  string number     = 2;
+}
+
+message ByRoute {
+  RouteEndpoint departure = 1;
+  RouteEndpoint arrival   = 2;
+}
+
+message RouteEndpoint {
+  RouteEndpointRef airline = 1; // id only
+  RouteEndpointRef city    = 2;
+}
+
+message RouteEndpointRef {
+  string id = 1; // uuid for airline, 3-character id for city
+}
+
+// -----------
+
+message SearchResponse {
+  Pagination            pagination = 1;  // extractNextUrl: root.sub(1).str(1)
+  repeated SearchResult entities   = 2;
+}
+
+message Pagination {
+  string next_url = 1;  // cursor URL for next page of results
+}
+
+message SearchResult {
+  repeated FlightCore   flights        = 1;
+  repeated FlightResult flight_results = 2;
+}
+
+message FlightResult {
+  string id      = 1;
+  bool   is_past = 2; // ?
+}
