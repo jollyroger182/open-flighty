@@ -2,10 +2,12 @@ import { create, fromBinary, toBinary, type DescMessage } from '@bufbuild/protob
 import { FlightyError, FlightyRequestError } from './error'
 import { SearchRequestSchema, SearchResponseSchema } from './gen/services/search_pb'
 import { SyncRequestSchema, SyncResponseSchema } from './gen/services/sync_pb'
+import { DataStore } from './store'
 
 interface FlightyOptions {
 	token: string
 	buildToken: string
+	store?: DataStore
 }
 
 type SearchRouteEndpoint = { airport: string; city?: never } | { airport?: never; city: string }
@@ -13,11 +15,15 @@ type SearchRouteEndpoint = { airport: string; city?: never } | { airport?: never
 export class Flighty {
 	private token: string
 	private buildToken: string
+	store: DataStore
+
 	private userAgent: string
 
 	constructor(options: FlightyOptions) {
 		this.token = options.token
 		this.buildToken = options.buildToken
+		this.store = options.store || new DataStore(this)
+		this.store.client = this
 
 		const payloadSection = this.buildToken.split('.')[1]
 		if (!payloadSection) {
@@ -90,15 +96,8 @@ export class Flighty {
 		})
 	}
 
-	async sync() {
-		const request = create(SyncRequestSchema, {})
-		const body = toBinary(SyncRequestSchema, request)
-
-		return this.protoRequest('https://api.flightyapp.com/v1/sync/full?fast_flight_sync=true', {
-			method: 'POST',
-			schema: SyncResponseSchema,
-			body,
-		})
+	sync() {
+		return this.store.sync()
 	}
 
 	async request(url: string | URL, options: RequestInit = {}) {
