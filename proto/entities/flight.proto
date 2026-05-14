@@ -27,7 +27,7 @@ message FlightCore {
   Aircraft           aircraft     = 7;
   // string             callsign     = 8;   // ATC callsign e.g. "CPA356"
   // field 9: [inferred] unknown (observed 1)
-  repeated Flight      inbound_flights = 10;
+  repeated FlightCore  inbound_flights = 10;
   repeated FlightEvent events          = 11;
   DelayForecast        delay_forecast  = 12;
   Timestamp            created         = 13;

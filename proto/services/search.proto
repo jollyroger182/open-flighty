@@ -31,8 +31,8 @@ message RouteEndpointRef {
 // -----------
 
 message SearchResponse {
-  Pagination            pagination = 1;  // extractNextUrl: root.sub(1).str(1)
-  repeated SearchResult entities   = 2;
+  Pagination   pagination = 1;  // extractNextUrl: root.sub(1).str(1)
+  SearchResult result     = 2;
 }
 
 message Pagination {
