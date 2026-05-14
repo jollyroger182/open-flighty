@@ -1,6 +1,8 @@
 syntax = "proto3";
 
 import "common.proto";
+import "entities/airline.proto";
+import "entities/airport.proto";
 
 message Flight {
   string     id          = 1;
@@ -18,13 +20,13 @@ message Flight {
 }
 
 message FlightCore {
-  string       id        = 1;
-  DepartureLeg departure = 2;
-  ArrivalLeg   arrival   = 3;
-  // field 4: [inferred] airline
+  string             id           = 1;
+  DepartureLeg       departure    = 2;
+  ArrivalLeg         arrival      = 3;
+  Airline            airline      = 4;
   bool               is_cancelled = 5;
   repeated Codeshare codeshares   = 6;
-  Aircraft           aircraft     = 7;
+  Equipment          equipment    = 7;
   // string             callsign     = 8;   // ATC callsign e.g. "CPA356"
   // field 9: [inferred] unknown (observed 1)
   repeated FlightCore  inbound_flights = 10;
@@ -41,51 +43,51 @@ message FlightCore {
 }
 
 message DepartureLeg {
-  // field 1: [inferred] airport
-  string      terminal = 2;
-  string      gate     = 3;
-  FlightTimes times    = 4;
+  Airport        airport  = 1;
+  string         terminal = 2;
+  string         gate     = 3;
+  FlightSchedule schedule = 4;
   // fields 5–7: [inferred] unknown
-  GateWindow  check_in = 8;   // check-in desk open/close
-  WeatherInfo weather  = 9;
+  CheckInSchedule check_in_schedule = 8;   // check-in desk open/close
+  WeatherInfo     weather           = 9;
   // field 10: [inferred] unknown
   // string airport_id = 11;  // reference to Airport.id
 }
 
 message ArrivalLeg {
-  // fields 1: [inferred] scheduled airport
-  // fields 2: [inferred] actual airport
-  string      terminal     = 3;
-  string      gate         = 4;
-  string      baggage_belt = 5;
-  WeatherInfo weather      = 6;
-  FlightTimes times        = 7;
+  Airport        scheduled_airport = 1;
+  Airport        actual_airport    = 2;
+  string         terminal          = 3;
+  string         gate              = 4;
+  string         baggage_belt      = 5;
+  WeatherInfo    weather           = 6;
+  FlightSchedule schedule          = 7;
   // fields 8–12: [inferred] unknown
   // string scheduled_arrival_airport_id = 13;  // original destination Airport.id
   // string arrival_airport_id           = 14;  // actual destination (differs if diverted)
 }
 
 message Codeshare {
-  // field 1: [inferred] airline
-  string number            = 2;  // e.g. "356"
-  bool   operates_aircraft = 3;  // true if this airline operates the actual aircraft
+  Airline airline           = 1;
+  string  number            = 2;  // e.g. "356"
+  bool    operates_aircraft = 3;  // true if this airline operates the actual aircraft
   // string airline_id        = 4;  // reference to Airline.id
 }
 
-message Aircraft {
-  string tail_number        = 1;   // e.g. "B-LBE"
-  string model_name         = 2;   // e.g. "Airbus A330-300"
-  int32  range_km           = 3;   // type range
-  int32  cruising_speed_kmh = 4;   // type cruise speed
-  string iata_type          = 5;   // e.g. "333"
-  string icao_type          = 6;   // e.g. "A333"
-  string first_flight       = 7;   // ISO date e.g. "2014-05-19"
-  // field 8: [inferred] unknown int (observed value 11)
-  string plane_name           = 9;   // [inferred] livery name e.g. "Cathay Spirit"
-  string registration_country = 10;  // 2-letter e.g. "HK"
-  string manufacturer         = 11;  // e.g. "Airbus"
-  string aircraft_type_id     = 12;  // reference to AircraftType.id
-  string model_name_2         = 13;   // e.g. "Airbus A330-300"
+message Equipment {
+  string tail_number      = 1;   // e.g. "B-LBE"
+  string model_name       = 2;   // e.g. "Airbus A330-300"
+  int32  range            = 3;   // type range
+  int32  cruising_speed   = 4;   // type cruise speed
+  string model_iata       = 5;   // e.g. "333"
+  string model_icao       = 6;   // e.g. "A333"
+  string first_flight     = 7;   // ISO date e.g. "2014-05-19"
+  int32  age              = 8;
+  string unknown_9        = 9;
+  string country_code     = 10;  // 2-letter e.g. "HK"
+  string manufacturer     = 11;  // e.g. "Airbus"
+  string model_id         = 12;  // reference to AircraftType.id
+  string stats_model_name = 13;   // e.g. "Airbus A330-300"
 }
 
 message DelayForecast {
@@ -102,34 +104,36 @@ message FaaTmi {
 }
 
 // TODO
-message FlightTimes {
-  Timestamp scheduled = 1;
-  Timestamp estimated = 2;
-  // fields 3–5: present in wire data, ignored by TS client
-  // [inferred] possibly runway_off (3), airborne (4), runway_on (5)
-  Timestamp actual_gate = 6;  // gate-out (departure) or gate-in (arrival)
+message FlightSchedule {
+  Timestamp gate_original     = 1;
+  Timestamp gate_estimated    = 2;
+  Timestamp gate_actual       = 3;
+  Timestamp runway_original   = 4;
+  Timestamp runway_estimated  = 5;
+  Timestamp runway_actual     = 6;
+  Timestamp initial_gate_time = 10;
 }
 
-message GateWindow {
+message CheckInSchedule {
   Timestamp open  = 1;
   Timestamp close = 2;
 }
 
 message WeatherInfo {
-  int32 temperature_c  = 1;
-  int32 condition_code = 2;   // OpenWeatherMap code e.g. 802
-  // field 3: [inferred] unknown int
-  int32        unknown_4   = 4;
-  string       condition   = 5;   // e.g. "Scattered Clouds"
-  WeatherAlert alert       = 6;   // present when severe weather active
-  int32        unknown_7   = 7;	  // always 0?
-  Timestamp    observed_at = 8;
+  int32                   temperature    = 1;   // celcius
+  int32                   condition      = 2;   // OpenWeatherMap code e.g. 802
+  bool                    night          = 3;
+  int32                   condition_icon = 4;   // ?
+  string                  condition_name = 5;   // e.g. "Scattered Clouds"
+  repeated WeatherWarning warnings       = 6;   // present when severe weather active
+  int32                   unknown_7      = 7;	  // always 0?
+  Timestamp               last_updated   = 8;
 }
 
-message WeatherAlert {
+message WeatherWarning {
   string title       = 1;   // e.g. "Lightning Nearby"
   string description = 2;   // full advisory text
-  int32  severity    = 3;   // [inferred] e.g. 20 = moderate
+  int32  icon        = 3;
 }
 
 // flight events

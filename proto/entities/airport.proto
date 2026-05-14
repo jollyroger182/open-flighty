@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "common.proto";
+
+message Airport {
+  string      id           = 1;   // internal UUID
+  string      name         = 2;   // e.g. "Hong Kong Intl."
+  string      iata         = 3;   // e.g. "HKG"
+  string      icao         = 4;   // e.g. "VHHH"
+  string      timezone     = 5;   // IANA tz e.g. "Asia/Hong_Kong"
+  Coordinates location     = 6;
+  string      city         = 7;
+  string      country      = 8;
+  string      country_code = 9;   // ISO 2-letter e.g. "HK"
+  string      region       = 10;  // e.g. "Asia"
+  int32       relevance    = 11;  // search ranking weight
+  Timestamp   created      = 12;
+  Timestamp   last_updated = 13;
+  string      website      = 15;
+  string      city_code    = 16;  // e.g. "Hong Kong HKG"
+}

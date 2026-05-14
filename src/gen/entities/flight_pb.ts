@@ -6,13 +6,17 @@ import type { GenFile, GenMessage } from "@bufbuild/protobuf/codegenv2";
 import { fileDesc, messageDesc } from "@bufbuild/protobuf/codegenv2";
 import type { Timestamp } from "../common_pb";
 import { file_common } from "../common_pb";
+import type { Airline } from "./airline_pb";
+import { file_entities_airline } from "./airline_pb";
+import type { Airport } from "./airport_pb";
+import { file_entities_airport } from "./airport_pb";
 import type { Message } from "@bufbuild/protobuf";
 
 /**
  * Describes the file entities/flight.proto.
  */
 export const file_entities_flight: GenFile = /*@__PURE__*/
-  fileDesc("ChVlbnRpdGllcy9mbGlnaHQucHJvdG8itwEKBkZsaWdodBIKCgJpZBgBIAEoCRIZCgRjb3JlGAIgASgLMgsuRmxpZ2h0Q29yZRITCgtpc19hcmNoaXZlZBgDIAEoCBIUCgxpc19teV9mbGlnaHQYBSABKAgSFQoNaW1wb3J0X3NvdXJjZRgHIAEoBRIPCgd1c2VyX2lkGAkgASgJEhMKC3NoYXJpbmdfdXJsGAogASgJEh4KCmRlbGV0ZWRfYXQYDSABKAsyCi5UaW1lc3RhbXAilQMKCkZsaWdodENvcmUSCgoCaWQYASABKAkSIAoJZGVwYXJ0dXJlGAIgASgLMg0uRGVwYXJ0dXJlTGVnEhwKB2Fycml2YWwYAyABKAsyCy5BcnJpdmFsTGVnEhQKDGlzX2NhbmNlbGxlZBgFIAEoCBIeCgpjb2Rlc2hhcmVzGAYgAygLMgouQ29kZXNoYXJlEhsKCGFpcmNyYWZ0GAcgASgLMgkuQWlyY3JhZnQSJAoPaW5ib3VuZF9mbGlnaHRzGAogAygLMgsuRmxpZ2h0Q29yZRIcCgZldmVudHMYCyADKAsyDC5GbGlnaHRFdmVudBImCg5kZWxheV9mb3JlY2FzdBgMIAEoCzIOLkRlbGF5Rm9yZWNhc3QSGwoHY3JlYXRlZBgNIAEoCzIKLlRpbWVzdGFtcBIgCgxsYXN0X3VwZGF0ZWQYDiABKAsyCi5UaW1lc3RhbXASDgoGbnVtYmVyGBAgASgJEhMKC2Rpc3RhbmNlX2ttGBEgASgFEhgKB2ZhYV90bWkYEiABKAsyBy5GYWFUbWkiiQEKDERlcGFydHVyZUxlZxIQCgh0ZXJtaW5hbBgCIAEoCRIMCgRnYXRlGAMgASgJEhsKBXRpbWVzGAQgASgLMgwuRmxpZ2h0VGltZXMSHQoIY2hlY2tfaW4YCCABKAsyCy5HYXRlV2luZG93Eh0KB3dlYXRoZXIYCSABKAsyDC5XZWF0aGVySW5mbyJ+CgpBcnJpdmFsTGVnEhAKCHRlcm1pbmFsGAMgASgJEgwKBGdhdGUYBCABKAkSFAoMYmFnZ2FnZV9iZWx0GAUgASgJEh0KB3dlYXRoZXIYBiABKAsyDC5XZWF0aGVySW5mbxIbCgV0aW1lcxgHIAEoCzIMLkZsaWdodFRpbWVzIjYKCUNvZGVzaGFyZRIOCgZudW1iZXIYAiABKAkSGQoRb3BlcmF0ZXNfYWlyY3JhZnQYAyABKAgilQIKCEFpcmNyYWZ0EhMKC3RhaWxfbnVtYmVyGAEgASgJEhIKCm1vZGVsX25hbWUYAiABKAkSEAoIcmFuZ2Vfa20YAyABKAUSGgoSY3J1aXNpbmdfc3BlZWRfa21oGAQgASgFEhEKCWlhdGFfdHlwZRgFIAEoCRIRCglpY2FvX3R5cGUYBiABKAkSFAoMZmlyc3RfZmxpZ2h0GAcgASgJEhIKCnBsYW5lX25hbWUYCSABKAkSHAoUcmVnaXN0cmF0aW9uX2NvdW50cnkYCiABKAkSFAoMbWFudWZhY3R1cmVyGAsgASgJEhgKEGFpcmNyYWZ0X3R5cGVfaWQYDCABKAkSFAoMbW9kZWxfbmFtZV8yGA0gASgJIkEKDURlbGF5Rm9yZWNhc3QSFAoMb2JzZXJ2YXRpb25zGAEgASgFEhoKEmRlbGF5X21lYW5fbWludXRlcxgCIAEoBSJaCgZGYWFUbWkSDAoEY29kZRgBIAEoBRIZCgVzdGFydBgCIAEoCzIKLlRpbWVzdGFtcBIXCgNlbmQYAyABKAsyCi5UaW1lc3RhbXASDgoGcmVhc29uGAQgASgJImwKC0ZsaWdodFRpbWVzEh0KCXNjaGVkdWxlZBgBIAEoCzIKLlRpbWVzdGFtcBIdCgllc3RpbWF0ZWQYAiABKAsyCi5UaW1lc3RhbXASHwoLYWN0dWFsX2dhdGUYBiABKAsyCi5UaW1lc3RhbXAiQQoKR2F0ZVdpbmRvdxIYCgRvcGVuGAEgASgLMgouVGltZXN0YW1wEhkKBWNsb3NlGAIgASgLMgouVGltZXN0YW1wIrQBCgtXZWF0aGVySW5mbxIVCg10ZW1wZXJhdHVyZV9jGAEgASgFEhYKDmNvbmRpdGlvbl9jb2RlGAIgASgFEhEKCXVua25vd25fNBgEIAEoBRIRCgljb25kaXRpb24YBSABKAkSHAoFYWxlcnQYBiABKAsyDS5XZWF0aGVyQWxlcnQSEQoJdW5rbm93bl83GAcgASgFEh8KC29ic2VydmVkX2F0GAggASgLMgouVGltZXN0YW1wIkQKDFdlYXRoZXJBbGVydBINCgV0aXRsZRgBIAEoCRITCgtkZXNjcmlwdGlvbhgCIAEoCRIQCghzZXZlcml0eRgDIAEoBSLvAQoLRmxpZ2h0RXZlbnQSHwoLcmVjb3JkZWRfYXQYASABKAsyCi5UaW1lc3RhbXASLwoTYmFnZ2FnZV9iZWx0X2NoYW5nZRgCIAEoCzISLkJhZ2dhZ2VCZWx0Q2hhbmdlEhwKCW9vaV9ldmVudBgFIAEoCzIJLk9vaUV2ZW50EiAKC2dhdGVfY2hhbmdlGAYgASgLMgsuR2F0ZUNoYW5nZRIkCg10aW1pbmdfY2hhbmdlGAkgASgLMg0uVGltaW5nQ2hhbmdlEigKD3RhaWxfYXNzaWdubWVudBgKIAEoCzIPLlRhaWxBc3NpZ25tZW50IikKEUJhZ2dhZ2VCZWx0Q2hhbmdlEhQKDGJhZ2dhZ2VfYmVsdBgBIAEoCSIxCghPb2lFdmVudBINCgV3aGljaBgBIAEoBRIWCgJhdBgCIAEoCzIKLlRpbWVzdGFtcCJACgpHYXRlQ2hhbmdlEhIKCmlzX2Fycml2YWwYASABKAgSEAoIdGVybWluYWwYAiABKAkSDAoEZ2F0ZRgDIAEoCSJjCgxUaW1pbmdDaGFuZ2USEgoKaXNfYXJyaXZhbBgBIAEoCBIUCgxpc19lc3RpbWF0ZWQYAiABKAgSEQoJdW5rbm93bl8zGAMgASgIEhYKAmF0GAQgASgLMgouVGltZXN0YW1wIiUKDlRhaWxBc3NpZ25tZW50EhMKC3RhaWxfbnVtYmVyGAEgASgJYgZwcm90bzM", [file_common]);
+  fileDesc("ChVlbnRpdGllcy9mbGlnaHQucHJvdG8itwEKBkZsaWdodBIKCgJpZBgBIAEoCRIZCgRjb3JlGAIgASgLMgsuRmxpZ2h0Q29yZRITCgtpc19hcmNoaXZlZBgDIAEoCBIUCgxpc19teV9mbGlnaHQYBSABKAgSFQoNaW1wb3J0X3NvdXJjZRgHIAEoBRIPCgd1c2VyX2lkGAkgASgJEhMKC3NoYXJpbmdfdXJsGAogASgJEh4KCmRlbGV0ZWRfYXQYDSABKAsyCi5UaW1lc3RhbXAisgMKCkZsaWdodENvcmUSCgoCaWQYASABKAkSIAoJZGVwYXJ0dXJlGAIgASgLMg0uRGVwYXJ0dXJlTGVnEhwKB2Fycml2YWwYAyABKAsyCy5BcnJpdmFsTGVnEhkKB2FpcmxpbmUYBCABKAsyCC5BaXJsaW5lEhQKDGlzX2NhbmNlbGxlZBgFIAEoCBIeCgpjb2Rlc2hhcmVzGAYgAygLMgouQ29kZXNoYXJlEh0KCWVxdWlwbWVudBgHIAEoCzIKLkVxdWlwbWVudBIkCg9pbmJvdW5kX2ZsaWdodHMYCiADKAsyCy5GbGlnaHRDb3JlEhwKBmV2ZW50cxgLIAMoCzIMLkZsaWdodEV2ZW50EiYKDmRlbGF5X2ZvcmVjYXN0GAwgASgLMg4uRGVsYXlGb3JlY2FzdBIbCgdjcmVhdGVkGA0gASgLMgouVGltZXN0YW1wEiAKDGxhc3RfdXBkYXRlZBgOIAEoCzIKLlRpbWVzdGFtcBIOCgZudW1iZXIYECABKAkSEwoLZGlzdGFuY2Vfa20YESABKAUSGAoHZmFhX3RtaRgSIAEoCzIHLkZhYVRtaSK4AQoMRGVwYXJ0dXJlTGVnEhkKB2FpcnBvcnQYASABKAsyCC5BaXJwb3J0EhAKCHRlcm1pbmFsGAIgASgJEgwKBGdhdGUYAyABKAkSIQoIc2NoZWR1bGUYBCABKAsyDy5GbGlnaHRTY2hlZHVsZRIrChFjaGVja19pbl9zY2hlZHVsZRgIIAEoCzIQLkNoZWNrSW5TY2hlZHVsZRIdCgd3ZWF0aGVyGAkgASgLMgwuV2VhdGhlckluZm8iywEKCkFycml2YWxMZWcSIwoRc2NoZWR1bGVkX2FpcnBvcnQYASABKAsyCC5BaXJwb3J0EiAKDmFjdHVhbF9haXJwb3J0GAIgASgLMgguQWlycG9ydBIQCgh0ZXJtaW5hbBgDIAEoCRIMCgRnYXRlGAQgASgJEhQKDGJhZ2dhZ2VfYmVsdBgFIAEoCRIdCgd3ZWF0aGVyGAYgASgLMgwuV2VhdGhlckluZm8SIQoIc2NoZWR1bGUYByABKAsyDy5GbGlnaHRTY2hlZHVsZSJRCglDb2Rlc2hhcmUSGQoHYWlybGluZRgBIAEoCzIILkFpcmxpbmUSDgoGbnVtYmVyGAIgASgJEhkKEW9wZXJhdGVzX2FpcmNyYWZ0GAMgASgIIpECCglFcXVpcG1lbnQSEwoLdGFpbF9udW1iZXIYASABKAkSEgoKbW9kZWxfbmFtZRgCIAEoCRINCgVyYW5nZRgDIAEoBRIWCg5jcnVpc2luZ19zcGVlZBgEIAEoBRISCgptb2RlbF9pYXRhGAUgASgJEhIKCm1vZGVsX2ljYW8YBiABKAkSFAoMZmlyc3RfZmxpZ2h0GAcgASgJEgsKA2FnZRgIIAEoBRIRCgl1bmtub3duXzkYCSABKAkSFAoMY291bnRyeV9jb2RlGAogASgJEhQKDG1hbnVmYWN0dXJlchgLIAEoCRIQCghtb2RlbF9pZBgMIAEoCRIYChBzdGF0c19tb2RlbF9uYW1lGA0gASgJIkEKDURlbGF5Rm9yZWNhc3QSFAoMb2JzZXJ2YXRpb25zGAEgASgFEhoKEmRlbGF5X21lYW5fbWludXRlcxgCIAEoBSJaCgZGYWFUbWkSDAoEY29kZRgBIAEoBRIZCgVzdGFydBgCIAEoCzIKLlRpbWVzdGFtcBIXCgNlbmQYAyABKAsyCi5UaW1lc3RhbXASDgoGcmVhc29uGAQgASgJIo0CCg5GbGlnaHRTY2hlZHVsZRIhCg1nYXRlX29yaWdpbmFsGAEgASgLMgouVGltZXN0YW1wEiIKDmdhdGVfZXN0aW1hdGVkGAIgASgLMgouVGltZXN0YW1wEh8KC2dhdGVfYWN0dWFsGAMgASgLMgouVGltZXN0YW1wEiMKD3J1bndheV9vcmlnaW5hbBgEIAEoCzIKLlRpbWVzdGFtcBIkChBydW53YXlfZXN0aW1hdGVkGAUgASgLMgouVGltZXN0YW1wEiEKDXJ1bndheV9hY3R1YWwYBiABKAsyCi5UaW1lc3RhbXASJQoRaW5pdGlhbF9nYXRlX3RpbWUYCiABKAsyCi5UaW1lc3RhbXAiRgoPQ2hlY2tJblNjaGVkdWxlEhgKBG9wZW4YASABKAsyCi5UaW1lc3RhbXASGQoFY2xvc2UYAiABKAsyCi5UaW1lc3RhbXAizAEKC1dlYXRoZXJJbmZvEhMKC3RlbXBlcmF0dXJlGAEgASgFEhEKCWNvbmRpdGlvbhgCIAEoBRINCgVuaWdodBgDIAEoCBIWCg5jb25kaXRpb25faWNvbhgEIAEoBRIWCg5jb25kaXRpb25fbmFtZRgFIAEoCRIhCgh3YXJuaW5ncxgGIAMoCzIPLldlYXRoZXJXYXJuaW5nEhEKCXVua25vd25fNxgHIAEoBRIgCgxsYXN0X3VwZGF0ZWQYCCABKAsyCi5UaW1lc3RhbXAiQgoOV2VhdGhlcldhcm5pbmcSDQoFdGl0bGUYASABKAkSEwoLZGVzY3JpcHRpb24YAiABKAkSDAoEaWNvbhgDIAEoBSLvAQoLRmxpZ2h0RXZlbnQSHwoLcmVjb3JkZWRfYXQYASABKAsyCi5UaW1lc3RhbXASLwoTYmFnZ2FnZV9iZWx0X2NoYW5nZRgCIAEoCzISLkJhZ2dhZ2VCZWx0Q2hhbmdlEhwKCW9vaV9ldmVudBgFIAEoCzIJLk9vaUV2ZW50EiAKC2dhdGVfY2hhbmdlGAYgASgLMgsuR2F0ZUNoYW5nZRIkCg10aW1pbmdfY2hhbmdlGAkgASgLMg0uVGltaW5nQ2hhbmdlEigKD3RhaWxfYXNzaWdubWVudBgKIAEoCzIPLlRhaWxBc3NpZ25tZW50IikKEUJhZ2dhZ2VCZWx0Q2hhbmdlEhQKDGJhZ2dhZ2VfYmVsdBgBIAEoCSIxCghPb2lFdmVudBINCgV3aGljaBgBIAEoBRIWCgJhdBgCIAEoCzIKLlRpbWVzdGFtcCJACgpHYXRlQ2hhbmdlEhIKCmlzX2Fycml2YWwYASABKAgSEAoIdGVybWluYWwYAiABKAkSDAoEZ2F0ZRgDIAEoCSJjCgxUaW1pbmdDaGFuZ2USEgoKaXNfYXJyaXZhbBgBIAEoCBIUCgxpc19lc3RpbWF0ZWQYAiABKAgSEQoJdW5rbm93bl8zGAMgASgIEhYKAmF0GAQgASgLMgouVGltZXN0YW1wIiUKDlRhaWxBc3NpZ25tZW50EhMKC3RhaWxfbnVtYmVyGAEgASgJYgZwcm90bzM", [file_common, file_entities_airline, file_entities_airport]);
 
 /**
  * @generated from message Flight
@@ -96,8 +100,11 @@ export type FlightCore = Message<"FlightCore"> & {
   arrival?: ArrivalLeg | undefined;
 
   /**
-   * field 4: [inferred] airline
-   *
+   * @generated from field: Airline airline = 4;
+   */
+  airline?: Airline | undefined;
+
+  /**
    * @generated from field: bool is_cancelled = 5;
    */
   isCancelled: boolean;
@@ -108,9 +115,9 @@ export type FlightCore = Message<"FlightCore"> & {
   codeshares: Codeshare[];
 
   /**
-   * @generated from field: Aircraft aircraft = 7;
+   * @generated from field: Equipment equipment = 7;
    */
-  aircraft?: Aircraft | undefined;
+  equipment?: Equipment | undefined;
 
   /**
    * string             callsign     = 8;   // ATC callsign e.g. "CPA356"
@@ -175,8 +182,11 @@ export const FlightCoreSchema: GenMessage<FlightCore> = /*@__PURE__*/
  */
 export type DepartureLeg = Message<"DepartureLeg"> & {
   /**
-   * field 1: [inferred] airport
-   *
+   * @generated from field: Airport airport = 1;
+   */
+  airport?: Airport | undefined;
+
+  /**
    * @generated from field: string terminal = 2;
    */
   terminal: string;
@@ -187,18 +197,18 @@ export type DepartureLeg = Message<"DepartureLeg"> & {
   gate: string;
 
   /**
-   * @generated from field: FlightTimes times = 4;
+   * @generated from field: FlightSchedule schedule = 4;
    */
-  times?: FlightTimes | undefined;
+  schedule?: FlightSchedule | undefined;
 
   /**
    * fields 5–7: [inferred] unknown
    *
    * check-in desk open/close
    *
-   * @generated from field: GateWindow check_in = 8;
+   * @generated from field: CheckInSchedule check_in_schedule = 8;
    */
-  checkIn?: GateWindow | undefined;
+  checkInSchedule?: CheckInSchedule | undefined;
 
   /**
    * field 10: [inferred] unknown
@@ -221,9 +231,16 @@ export const DepartureLegSchema: GenMessage<DepartureLeg> = /*@__PURE__*/
  */
 export type ArrivalLeg = Message<"ArrivalLeg"> & {
   /**
-   * fields 1: [inferred] scheduled airport
-   * fields 2: [inferred] actual airport
-   *
+   * @generated from field: Airport scheduled_airport = 1;
+   */
+  scheduledAirport?: Airport | undefined;
+
+  /**
+   * @generated from field: Airport actual_airport = 2;
+   */
+  actualAirport?: Airport | undefined;
+
+  /**
    * @generated from field: string terminal = 3;
    */
   terminal: string;
@@ -248,9 +265,9 @@ export type ArrivalLeg = Message<"ArrivalLeg"> & {
    * string scheduled_arrival_airport_id = 13;  // original destination Airport.id
    * string arrival_airport_id           = 14;  // actual destination (differs if diverted)
    *
-   * @generated from field: FlightTimes times = 7;
+   * @generated from field: FlightSchedule schedule = 7;
    */
-  times?: FlightTimes | undefined;
+  schedule?: FlightSchedule | undefined;
 };
 
 /**
@@ -265,8 +282,11 @@ export const ArrivalLegSchema: GenMessage<ArrivalLeg> = /*@__PURE__*/
  */
 export type Codeshare = Message<"Codeshare"> & {
   /**
-   * field 1: [inferred] airline
-   *
+   * @generated from field: Airline airline = 1;
+   */
+  airline?: Airline | undefined;
+
+  /**
    * e.g. "356"
    *
    * @generated from field: string number = 2;
@@ -289,9 +309,9 @@ export const CodeshareSchema: GenMessage<Codeshare> = /*@__PURE__*/
   messageDesc(file_entities_flight, 4);
 
 /**
- * @generated from message Aircraft
+ * @generated from message Equipment
  */
-export type Aircraft = Message<"Aircraft"> & {
+export type Equipment = Message<"Equipment"> & {
   /**
    * e.g. "B-LBE"
    *
@@ -309,30 +329,30 @@ export type Aircraft = Message<"Aircraft"> & {
   /**
    * type range
    *
-   * @generated from field: int32 range_km = 3;
+   * @generated from field: int32 range = 3;
    */
-  rangeKm: number;
+  range: number;
 
   /**
    * type cruise speed
    *
-   * @generated from field: int32 cruising_speed_kmh = 4;
+   * @generated from field: int32 cruising_speed = 4;
    */
-  cruisingSpeedKmh: number;
+  cruisingSpeed: number;
 
   /**
    * e.g. "333"
    *
-   * @generated from field: string iata_type = 5;
+   * @generated from field: string model_iata = 5;
    */
-  iataType: string;
+  modelIata: string;
 
   /**
    * e.g. "A333"
    *
-   * @generated from field: string icao_type = 6;
+   * @generated from field: string model_icao = 6;
    */
-  icaoType: string;
+  modelIcao: string;
 
   /**
    * ISO date e.g. "2014-05-19"
@@ -342,20 +362,21 @@ export type Aircraft = Message<"Aircraft"> & {
   firstFlight: string;
 
   /**
-   * field 8: [inferred] unknown int (observed value 11)
-   *
-   * [inferred] livery name e.g. "Cathay Spirit"
-   *
-   * @generated from field: string plane_name = 9;
+   * @generated from field: int32 age = 8;
    */
-  planeName: string;
+  age: number;
+
+  /**
+   * @generated from field: string unknown_9 = 9;
+   */
+  unknown9: string;
 
   /**
    * 2-letter e.g. "HK"
    *
-   * @generated from field: string registration_country = 10;
+   * @generated from field: string country_code = 10;
    */
-  registrationCountry: string;
+  countryCode: string;
 
   /**
    * e.g. "Airbus"
@@ -367,23 +388,23 @@ export type Aircraft = Message<"Aircraft"> & {
   /**
    * reference to AircraftType.id
    *
-   * @generated from field: string aircraft_type_id = 12;
+   * @generated from field: string model_id = 12;
    */
-  aircraftTypeId: string;
+  modelId: string;
 
   /**
    * e.g. "Airbus A330-300"
    *
-   * @generated from field: string model_name_2 = 13;
+   * @generated from field: string stats_model_name = 13;
    */
-  modelName2: string;
+  statsModelName: string;
 };
 
 /**
- * Describes the message Aircraft.
- * Use `create(AircraftSchema)` to create a new message.
+ * Describes the message Equipment.
+ * Use `create(EquipmentSchema)` to create a new message.
  */
-export const AircraftSchema: GenMessage<Aircraft> = /*@__PURE__*/
+export const EquipmentSchema: GenMessage<Equipment> = /*@__PURE__*/
   messageDesc(file_entities_flight, 5);
 
 /**
@@ -447,41 +468,56 @@ export const FaaTmiSchema: GenMessage<FaaTmi> = /*@__PURE__*/
 /**
  * TODO
  *
- * @generated from message FlightTimes
+ * @generated from message FlightSchedule
  */
-export type FlightTimes = Message<"FlightTimes"> & {
+export type FlightSchedule = Message<"FlightSchedule"> & {
   /**
-   * @generated from field: Timestamp scheduled = 1;
+   * @generated from field: Timestamp gate_original = 1;
    */
-  scheduled?: Timestamp | undefined;
+  gateOriginal?: Timestamp | undefined;
 
   /**
-   * @generated from field: Timestamp estimated = 2;
+   * @generated from field: Timestamp gate_estimated = 2;
    */
-  estimated?: Timestamp | undefined;
+  gateEstimated?: Timestamp | undefined;
 
   /**
-   * fields 3–5: present in wire data, ignored by TS client
-   * [inferred] possibly runway_off (3), airborne (4), runway_on (5)
-   *
-   * gate-out (departure) or gate-in (arrival)
-   *
-   * @generated from field: Timestamp actual_gate = 6;
+   * @generated from field: Timestamp gate_actual = 3;
    */
-  actualGate?: Timestamp | undefined;
+  gateActual?: Timestamp | undefined;
+
+  /**
+   * @generated from field: Timestamp runway_original = 4;
+   */
+  runwayOriginal?: Timestamp | undefined;
+
+  /**
+   * @generated from field: Timestamp runway_estimated = 5;
+   */
+  runwayEstimated?: Timestamp | undefined;
+
+  /**
+   * @generated from field: Timestamp runway_actual = 6;
+   */
+  runwayActual?: Timestamp | undefined;
+
+  /**
+   * @generated from field: Timestamp initial_gate_time = 10;
+   */
+  initialGateTime?: Timestamp | undefined;
 };
 
 /**
- * Describes the message FlightTimes.
- * Use `create(FlightTimesSchema)` to create a new message.
+ * Describes the message FlightSchedule.
+ * Use `create(FlightScheduleSchema)` to create a new message.
  */
-export const FlightTimesSchema: GenMessage<FlightTimes> = /*@__PURE__*/
+export const FlightScheduleSchema: GenMessage<FlightSchedule> = /*@__PURE__*/
   messageDesc(file_entities_flight, 8);
 
 /**
- * @generated from message GateWindow
+ * @generated from message CheckInSchedule
  */
-export type GateWindow = Message<"GateWindow"> & {
+export type CheckInSchedule = Message<"CheckInSchedule"> & {
   /**
    * @generated from field: Timestamp open = 1;
    */
@@ -494,10 +530,10 @@ export type GateWindow = Message<"GateWindow"> & {
 };
 
 /**
- * Describes the message GateWindow.
- * Use `create(GateWindowSchema)` to create a new message.
+ * Describes the message CheckInSchedule.
+ * Use `create(CheckInScheduleSchema)` to create a new message.
  */
-export const GateWindowSchema: GenMessage<GateWindow> = /*@__PURE__*/
+export const CheckInScheduleSchema: GenMessage<CheckInSchedule> = /*@__PURE__*/
   messageDesc(file_entities_flight, 9);
 
 /**
@@ -505,37 +541,44 @@ export const GateWindowSchema: GenMessage<GateWindow> = /*@__PURE__*/
  */
 export type WeatherInfo = Message<"WeatherInfo"> & {
   /**
-   * @generated from field: int32 temperature_c = 1;
+   * celcius
+   *
+   * @generated from field: int32 temperature = 1;
    */
-  temperatureC: number;
+  temperature: number;
 
   /**
    * OpenWeatherMap code e.g. 802
    *
-   * @generated from field: int32 condition_code = 2;
+   * @generated from field: int32 condition = 2;
    */
-  conditionCode: number;
+  condition: number;
 
   /**
-   * field 3: [inferred] unknown int
-   *
-   * @generated from field: int32 unknown_4 = 4;
+   * @generated from field: bool night = 3;
    */
-  unknown4: number;
+  night: boolean;
+
+  /**
+   * ?
+   *
+   * @generated from field: int32 condition_icon = 4;
+   */
+  conditionIcon: number;
 
   /**
    * e.g. "Scattered Clouds"
    *
-   * @generated from field: string condition = 5;
+   * @generated from field: string condition_name = 5;
    */
-  condition: string;
+  conditionName: string;
 
   /**
    * present when severe weather active
    *
-   * @generated from field: WeatherAlert alert = 6;
+   * @generated from field: repeated WeatherWarning warnings = 6;
    */
-  alert?: WeatherAlert | undefined;
+  warnings: WeatherWarning[];
 
   /**
    * always 0?
@@ -545,9 +588,9 @@ export type WeatherInfo = Message<"WeatherInfo"> & {
   unknown7: number;
 
   /**
-   * @generated from field: Timestamp observed_at = 8;
+   * @generated from field: Timestamp last_updated = 8;
    */
-  observedAt?: Timestamp | undefined;
+  lastUpdated?: Timestamp | undefined;
 };
 
 /**
@@ -558,9 +601,9 @@ export const WeatherInfoSchema: GenMessage<WeatherInfo> = /*@__PURE__*/
   messageDesc(file_entities_flight, 10);
 
 /**
- * @generated from message WeatherAlert
+ * @generated from message WeatherWarning
  */
-export type WeatherAlert = Message<"WeatherAlert"> & {
+export type WeatherWarning = Message<"WeatherWarning"> & {
   /**
    * e.g. "Lightning Nearby"
    *
@@ -576,18 +619,16 @@ export type WeatherAlert = Message<"WeatherAlert"> & {
   description: string;
 
   /**
-   * [inferred] e.g. 20 = moderate
-   *
-   * @generated from field: int32 severity = 3;
+   * @generated from field: int32 icon = 3;
    */
-  severity: number;
+  icon: number;
 };
 
 /**
- * Describes the message WeatherAlert.
- * Use `create(WeatherAlertSchema)` to create a new message.
+ * Describes the message WeatherWarning.
+ * Use `create(WeatherWarningSchema)` to create a new message.
  */
-export const WeatherAlertSchema: GenMessage<WeatherAlert> = /*@__PURE__*/
+export const WeatherWarningSchema: GenMessage<WeatherWarning> = /*@__PURE__*/
   messageDesc(file_entities_flight, 11);
 
 /**

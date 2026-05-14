@@ -3,3 +3,8 @@ syntax = "proto3";
 message Timestamp {
   int64 seconds = 1;
 }
+
+message Coordinates {
+  double latitude  = 1;
+  double longitude = 2;
+}

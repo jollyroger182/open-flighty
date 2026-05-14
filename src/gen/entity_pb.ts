@@ -4,6 +4,8 @@
 
 import type { GenFile, GenMessage } from "@bufbuild/protobuf/codegenv2";
 import { fileDesc, messageDesc } from "@bufbuild/protobuf/codegenv2";
+import type { Airline } from "./entities/airline_pb";
+import { file_entities_airline } from "./entities/airline_pb";
 import type { Flight } from "./entities/flight_pb";
 import { file_entities_flight } from "./entities/flight_pb";
 import type { Message } from "@bufbuild/protobuf";
@@ -12,12 +14,17 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file entity.proto.
  */
 export const file_entity: GenFile = /*@__PURE__*/
-  fileDesc("CgxlbnRpdHkucHJvdG8iIQoGRW50aXR5EhcKBmZsaWdodBgPIAEoCzIHLkZsaWdodGIGcHJvdG8z", [file_entities_flight]);
+  fileDesc("CgxlbnRpdHkucHJvdG8iPAoGRW50aXR5EhkKB2FpcmxpbmUYAiABKAsyCC5BaXJsaW5lEhcKBmZsaWdodBgPIAEoCzIHLkZsaWdodGIGcHJvdG8z", [file_entities_airline, file_entities_flight]);
 
 /**
  * @generated from message Entity
  */
 export type Entity = Message<"Entity"> & {
+  /**
+   * @generated from field: Airline airline = 2;
+   */
+  airline?: Airline | undefined;
+
   /**
    * @generated from field: Flight flight = 15;
    */

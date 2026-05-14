@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "common.proto";
+
+message Airline {
+  string    id            = 1;
+  string    name          = 2;   // e.g. "Cathay Pacific"
+  string    iata          = 3;   // e.g. "CX"
+  string    icao          = 4;   // e.g. "CPA"
+  string    website       = 5;
+  string    twitter       = 6;
+  string    callsign      = 7;   // e.g. "CATHAY"
+  string    phone         = 8;   // E.164 e.g. "+180014411011"
+  string    facebook_url  = 9;
+  string    alliance      = 10;  // e.g. "Oneworld", "SkyTeam", "Star Alliance"
+  bool      active        = 11;
+  int32     relevance     = 12;
+  Timestamp created       = 13;
+  Timestamp last_updated  = 14;
+  string    phone_display = 16;  // formatted e.g. "+1 800 144 11011"
+  string    phone_uri     = 17;  // e.g. "tel://+180014411011"
+  // int32     dialing_code   = 18;  // numeric country dial code e.g. 659
+}

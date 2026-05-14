@@ -10,7 +10,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file common.proto.
  */
 export const file_common: GenFile = /*@__PURE__*/
-  fileDesc("Cgxjb21tb24ucHJvdG8iHAoJVGltZXN0YW1wEg8KB3NlY29uZHMYASABKANiBnByb3RvMw");
+  fileDesc("Cgxjb21tb24ucHJvdG8iHAoJVGltZXN0YW1wEg8KB3NlY29uZHMYASABKAMiMgoLQ29vcmRpbmF0ZXMSEAoIbGF0aXR1ZGUYASABKAESEQoJbG9uZ2l0dWRlGAIgASgBYgZwcm90bzM");
 
 /**
  * @generated from message Timestamp
@@ -28,4 +28,26 @@ export type Timestamp = Message<"Timestamp"> & {
  */
 export const TimestampSchema: GenMessage<Timestamp> = /*@__PURE__*/
   messageDesc(file_common, 0);
+
+/**
+ * @generated from message Coordinates
+ */
+export type Coordinates = Message<"Coordinates"> & {
+  /**
+   * @generated from field: double latitude = 1;
+   */
+  latitude: number;
+
+  /**
+   * @generated from field: double longitude = 2;
+   */
+  longitude: number;
+};
+
+/**
+ * Describes the message Coordinates.
+ * Use `create(CoordinatesSchema)` to create a new message.
+ */
+export const CoordinatesSchema: GenMessage<Coordinates> = /*@__PURE__*/
+  messageDesc(file_common, 1);
 

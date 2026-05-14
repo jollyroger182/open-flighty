@@ -1,7 +1,11 @@
 syntax = "proto3";
 
+import "entities/airline.proto";
+import "entities/airport.proto";
 import "entities/flight.proto";
 
 message Entity {
-  Flight flight = 15;
+  Airport airport = 1;
+  Airline airline = 2;
+  Flight  flight  = 15;
 }
