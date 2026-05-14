@@ -4,6 +4,8 @@
 
 import type { GenFile, GenMessage } from "@bufbuild/protobuf/codegenv2";
 import { fileDesc, messageDesc } from "@bufbuild/protobuf/codegenv2";
+import type { Pagination } from "../common_pb";
+import { file_common } from "../common_pb";
 import type { FlightCore } from "../entities/flight_pb";
 import { file_entities_flight } from "../entities/flight_pb";
 import type { Message } from "@bufbuild/protobuf";
@@ -12,7 +14,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file services/search.proto.
  */
 export const file_services_search: GenFile = /*@__PURE__*/
-  fileDesc("ChVzZXJ2aWNlcy9zZWFyY2gucHJvdG8iXwoNU2VhcmNoUmVxdWVzdBIZCgZudW1iZXIYASABKAsyCS5CeU51bWJlchIXCgVyb3V0ZRgCIAEoCzIILkJ5Um91dGUSDAoEZGF0ZRgDIAEoCRIMCgRtb2RlGAQgASgJIi4KCEJ5TnVtYmVyEhIKCmFpcmxpbmVfaWQYASABKAkSDgoGbnVtYmVyGAIgASgJIk0KB0J5Um91dGUSIQoJZGVwYXJ0dXJlGAEgASgLMg4uUm91dGVFbmRwb2ludBIfCgdhcnJpdmFsGAIgASgLMg4uUm91dGVFbmRwb2ludCJUCg1Sb3V0ZUVuZHBvaW50EiIKB2FpcmxpbmUYASABKAsyES5Sb3V0ZUVuZHBvaW50UmVmEh8KBGNpdHkYAiABKAsyES5Sb3V0ZUVuZHBvaW50UmVmIh4KEFJvdXRlRW5kcG9pbnRSZWYSCgoCaWQYASABKAkiUAoOU2VhcmNoUmVzcG9uc2USHwoKcGFnaW5hdGlvbhgBIAEoCzILLlBhZ2luYXRpb24SHQoGcmVzdWx0GAIgASgLMg0uU2VhcmNoUmVzdWx0Ih4KClBhZ2luYXRpb24SEAoIbmV4dF91cmwYASABKAkiUwoMU2VhcmNoUmVzdWx0EhwKB2ZsaWdodHMYASADKAsyCy5GbGlnaHRDb3JlEiUKDmZsaWdodF9yZXN1bHRzGAIgAygLMg0uRmxpZ2h0UmVzdWx0IisKDEZsaWdodFJlc3VsdBIKCgJpZBgBIAEoCRIPCgdpc19wYXN0GAIgASgIYgZwcm90bzM", [file_entities_flight]);
+  fileDesc("ChVzZXJ2aWNlcy9zZWFyY2gucHJvdG8iXwoNU2VhcmNoUmVxdWVzdBIZCgZudW1iZXIYASABKAsyCS5CeU51bWJlchIXCgVyb3V0ZRgCIAEoCzIILkJ5Um91dGUSDAoEZGF0ZRgDIAEoCRIMCgRtb2RlGAQgASgJIi4KCEJ5TnVtYmVyEhIKCmFpcmxpbmVfaWQYASABKAkSDgoGbnVtYmVyGAIgASgJIk0KB0J5Um91dGUSIQoJZGVwYXJ0dXJlGAEgASgLMg4uUm91dGVFbmRwb2ludBIfCgdhcnJpdmFsGAIgASgLMg4uUm91dGVFbmRwb2ludCJUCg1Sb3V0ZUVuZHBvaW50EiIKB2FpcnBvcnQYASABKAsyES5Sb3V0ZUVuZHBvaW50UmVmEh8KBGNpdHkYAiABKAsyES5Sb3V0ZUVuZHBvaW50UmVmIh4KEFJvdXRlRW5kcG9pbnRSZWYSCgoCaWQYASABKAkiUAoOU2VhcmNoUmVzcG9uc2USHwoKcGFnaW5hdGlvbhgBIAEoCzILLlBhZ2luYXRpb24SHQoGcmVzdWx0GAIgASgLMg0uU2VhcmNoUmVzdWx0IlMKDFNlYXJjaFJlc3VsdBIcCgdmbGlnaHRzGAEgAygLMgsuRmxpZ2h0Q29yZRIlCg5mbGlnaHRfcmVzdWx0cxgCIAMoCzINLkZsaWdodFJlc3VsdCIrCgxGbGlnaHRSZXN1bHQSCgoCaWQYASABKAkSDwoHaXNfcGFzdBgCIAEoCGIGcHJvdG8z", [file_common, file_entities_flight]);
 
 /**
  * @generated from message SearchRequest
@@ -99,9 +101,9 @@ export type RouteEndpoint = Message<"RouteEndpoint"> & {
   /**
    * id only
    *
-   * @generated from field: RouteEndpointRef airline = 1;
+   * @generated from field: RouteEndpointRef airport = 1;
    */
-  airline?: RouteEndpointRef | undefined;
+  airport?: RouteEndpointRef | undefined;
 
   /**
    * @generated from field: RouteEndpointRef city = 2;
@@ -121,7 +123,7 @@ export const RouteEndpointSchema: GenMessage<RouteEndpoint> = /*@__PURE__*/
  */
 export type RouteEndpointRef = Message<"RouteEndpointRef"> & {
   /**
-   * uuid for airline, 3-character id for city
+   * uuid for airport, 3-character id for city
    *
    * @generated from field: string id = 1;
    */
@@ -160,25 +162,6 @@ export const SearchResponseSchema: GenMessage<SearchResponse> = /*@__PURE__*/
   messageDesc(file_services_search, 5);
 
 /**
- * @generated from message Pagination
- */
-export type Pagination = Message<"Pagination"> & {
-  /**
-   * cursor URL for next page of results
-   *
-   * @generated from field: string next_url = 1;
-   */
-  nextUrl: string;
-};
-
-/**
- * Describes the message Pagination.
- * Use `create(PaginationSchema)` to create a new message.
- */
-export const PaginationSchema: GenMessage<Pagination> = /*@__PURE__*/
-  messageDesc(file_services_search, 6);
-
-/**
  * @generated from message SearchResult
  */
 export type SearchResult = Message<"SearchResult"> & {
@@ -198,7 +181,7 @@ export type SearchResult = Message<"SearchResult"> & {
  * Use `create(SearchResultSchema)` to create a new message.
  */
 export const SearchResultSchema: GenMessage<SearchResult> = /*@__PURE__*/
-  messageDesc(file_services_search, 7);
+  messageDesc(file_services_search, 6);
 
 /**
  * @generated from message FlightResult
@@ -222,5 +205,5 @@ export type FlightResult = Message<"FlightResult"> & {
  * Use `create(FlightResultSchema)` to create a new message.
  */
 export const FlightResultSchema: GenMessage<FlightResult> = /*@__PURE__*/
-  messageDesc(file_services_search, 8);
+  messageDesc(file_services_search, 7);
 

@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+import "common.proto";
 import "entities/flight.proto";
 
 message SearchRequest {
@@ -20,12 +21,12 @@ message ByRoute {
 }
 
 message RouteEndpoint {
-  RouteEndpointRef airline = 1; // id only
+  RouteEndpointRef airport = 1; // id only
   RouteEndpointRef city    = 2;
 }
 
 message RouteEndpointRef {
-  string id = 1; // uuid for airline, 3-character id for city
+  string id = 1; // uuid for airport, 3-character id for city
 }
 
 // -----------
@@ -33,10 +34,6 @@ message RouteEndpointRef {
 message SearchResponse {
   Pagination   pagination = 1;  // extractNextUrl: root.sub(1).str(1)
   SearchResult result     = 2;
-}
-
-message Pagination {
-  string next_url = 1;  // cursor URL for next page of results
 }
 
 message SearchResult {

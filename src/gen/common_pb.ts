@@ -10,7 +10,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file common.proto.
  */
 export const file_common: GenFile = /*@__PURE__*/
-  fileDesc("Cgxjb21tb24ucHJvdG8iHAoJVGltZXN0YW1wEg8KB3NlY29uZHMYASABKAMiMgoLQ29vcmRpbmF0ZXMSEAoIbGF0aXR1ZGUYASABKAESEQoJbG9uZ2l0dWRlGAIgASgBYgZwcm90bzM");
+  fileDesc("Cgxjb21tb24ucHJvdG8iKwoJVGltZXN0YW1wEg8KB3NlY29uZHMYASABKAMSDQoFbmFub3MYAiABKAMiMAoKUGFnaW5hdGlvbhIQCghuZXh0X3VybBgBIAEoCRIQCghoYXNfbW9yZRgCIAEoCCIyCgtDb29yZGluYXRlcxIQCghsYXRpdHVkZRgBIAEoARIRCglsb25naXR1ZGUYAiABKAFiBnByb3RvMw");
 
 /**
  * @generated from message Timestamp
@@ -20,6 +20,13 @@ export type Timestamp = Message<"Timestamp"> & {
    * @generated from field: int64 seconds = 1;
    */
   seconds: bigint;
+
+  /**
+   * not always present
+   *
+   * @generated from field: int64 nanos = 2;
+   */
+  nanos: bigint;
 };
 
 /**
@@ -28,6 +35,32 @@ export type Timestamp = Message<"Timestamp"> & {
  */
 export const TimestampSchema: GenMessage<Timestamp> = /*@__PURE__*/
   messageDesc(file_common, 0);
+
+/**
+ * @generated from message Pagination
+ */
+export type Pagination = Message<"Pagination"> & {
+  /**
+   * cursor URL for next page of results
+   *
+   * @generated from field: string next_url = 1;
+   */
+  nextUrl: string;
+
+  /**
+   * used in sync
+   *
+   * @generated from field: bool has_more = 2;
+   */
+  hasMore: boolean;
+};
+
+/**
+ * Describes the message Pagination.
+ * Use `create(PaginationSchema)` to create a new message.
+ */
+export const PaginationSchema: GenMessage<Pagination> = /*@__PURE__*/
+  messageDesc(file_common, 1);
 
 /**
  * @generated from message Coordinates
@@ -49,5 +82,5 @@ export type Coordinates = Message<"Coordinates"> & {
  * Use `create(CoordinatesSchema)` to create a new message.
  */
 export const CoordinatesSchema: GenMessage<Coordinates> = /*@__PURE__*/
-  messageDesc(file_common, 1);
+  messageDesc(file_common, 2);
 

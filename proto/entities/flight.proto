@@ -11,12 +11,13 @@ message Flight {
   // field 4: [inferred] unknown
   bool is_my_flight = 5;
   // field 6: [inferred] unknown
-  int32 import_source = 7;   // [inferred] how flight was added
+  int32 import_source = 7;   // [inferred] how flight was added (3=search)
   // field 8: [inferred] unknown
   string user_id     = 9;
   string sharing_url = 10;
-  // fields 11–12: [inferred] unknown
-  Timestamp deleted_at = 13;
+	Timestamp created_at = 11;  // has nanos
+	Timestamp updated_at = 12;  // has nanos
+	Timestamp deleted_at = 13;
 }
 
 message FlightCore {

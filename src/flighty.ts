@@ -1,10 +1,14 @@
-import { fromBinary, type DescMessage } from '@bufbuild/protobuf'
+import { create, fromBinary, toBinary, type DescMessage } from '@bufbuild/protobuf'
 import { FlightyError, FlightyRequestError } from './error'
+import { SearchRequestSchema, SearchResponseSchema } from './gen/services/search_pb'
+import { SyncRequestSchema, SyncResponseSchema } from './gen/services/sync_pb'
 
 interface FlightyOptions {
 	token: string
 	buildToken: string
 }
+
+type SearchRouteEndpoint = { airport: string; city?: never } | { airport?: never; city: string }
 
 export class Flighty {
 	private token: string
@@ -25,6 +29,76 @@ export class Flighty {
 			throw new FlightyError('Build token provided is missing version or build field')
 		}
 		this.userAgent = `Flighty ${payload.version} (${payload.build}) com.flightyapp.flighty`
+	}
+
+	get search() {
+		return {
+			route: this.#searchByRoute.bind(this),
+			number: this.#searchByNumber.bind(this),
+		}
+	}
+
+	async #searchByRoute(params: {
+		departure: SearchRouteEndpoint
+		arrival: SearchRouteEndpoint
+		date: string
+	}) {
+		const {
+			date,
+			departure: { airport: departureAirport, city: departureCity },
+			arrival: { airport: arrivalAirport, city: arrivalCity },
+		} = params
+		const mode = departureCity || arrivalCity ? 'ROUTE_GUIDED' : 'ROUTE'
+
+		const request = create(SearchRequestSchema, {
+			mode,
+			date,
+			route: {
+				departure: {
+					airport: departureAirport ? { id: departureAirport } : undefined,
+					city: departureCity ? { id: departureCity } : undefined,
+				},
+				arrival: {
+					airport: arrivalAirport ? { id: arrivalAirport } : undefined,
+					city: arrivalCity ? { id: arrivalCity } : undefined,
+				},
+			},
+		})
+		const body = toBinary(SearchRequestSchema, request)
+
+		return this.protoRequest('https://api.flightyapp.com/v1/search', {
+			method: 'POST',
+			schema: SearchResponseSchema,
+			body,
+		})
+	}
+
+	async #searchByNumber(params: { date: string; airlineId: string; number: string }) {
+		const { date, airlineId, number } = params
+
+		const request = create(SearchRequestSchema, {
+			mode: 'FLIGHT_NUMBER',
+			date,
+			number: { airlineId, number },
+		})
+		const body = toBinary(SearchRequestSchema, request)
+
+		return this.protoRequest('https://api.flightyapp.com/v1/search', {
+			method: 'POST',
+			schema: SearchResponseSchema,
+			body,
+		})
+	}
+
+	async sync() {
+		const request = create(SyncRequestSchema, {})
+		const body = toBinary(SyncRequestSchema, request)
+
+		return this.protoRequest('https://api.flightyapp.com/v1/sync/full?fast_flight_sync=true', {
+			method: 'POST',
+			schema: SyncResponseSchema,
+			body,
+		})
 	}
 
 	async request(url: string | URL, options: RequestInit = {}) {
@@ -66,7 +140,6 @@ export class Flighty {
 			},
 		})
 		console.log(resp.status)
-		console.log(await resp.clone().text())
 		const data = await resp.bytes()
 
 		return fromBinary(schema, data)

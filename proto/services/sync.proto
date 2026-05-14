@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "common.proto";
+import "entity.proto";
+
+message SyncRequest {}
+
+message SyncResponse {
+  Pagination        pagination = 1;
+  repeated Entity items      = 2;
+}
