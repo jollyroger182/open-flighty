@@ -6,6 +6,7 @@ import "entities/connection.proto";
 import "entities/profile.proto";
 import "entities/ticket.proto";
 import "entities/flight.proto";
+import "entities/city.proto";
 
 message Entity {
   Airport    airport    = 1;
@@ -14,4 +15,5 @@ message Entity {
   Profile    profile    = 8;
   Ticket     ticket     = 12;
   Flight     flight     = 15;
+  City       city       = 19;
 }

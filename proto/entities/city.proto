@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "common.proto";
+
+message City {
+  string          id           = 1;
+  string          name         = 2;
+  string          country_code = 3;
+  repeated string airport_ids  = 4;
+  int32           relevance    = 5;
+  Timestamp       created_at   = 6;
+  Timestamp       updated_at   = 7;
+}

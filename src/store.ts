@@ -10,6 +10,7 @@ import type { Profile } from './gen/entities/profile_pb'
 import type { Ticket } from './gen/entities/ticket_pb'
 import type { Entity } from './gen/entity_pb'
 import { SyncRequestSchema, SyncResponseSchema } from './gen/services/sync_pb'
+import type { City } from './gen/entities/city_pb'
 
 export class DataStore {
 	airlines = new Map<string, Airline>()
@@ -18,6 +19,7 @@ export class DataStore {
 	connections = new Map<string, Connection>()
 	profiles = new Map<string, Profile>()
 	tickets = new Map<string, Ticket>()
+	cities = new Map<string, City>()
 
 	private syncUrl?: string
 	#syncChain: Promise<void> = Promise.resolve()
@@ -67,6 +69,8 @@ export class DataStore {
 				this.profiles.set(item.profile.id, item.profile)
 			} else if (item.ticket) {
 				this.tickets.set(item.ticket.id, item.ticket)
+			} else if (item.city) {
+				this.cities.set(item.city.id, item.city)
 			}
 		}
 	}
@@ -83,6 +87,7 @@ export class DataStore {
 					...toEntities(this.connections, 'connection'),
 					...toEntities(this.profiles, 'profile'),
 					...toEntities(this.tickets, 'ticket'),
+					...toEntities(this.cities, 'city'),
 				],
 				syncUrl: this.syncUrl || '',
 			},
