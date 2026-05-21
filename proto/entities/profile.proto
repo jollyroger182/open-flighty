@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "common.proto";
+
+message Profile {
+  string    id         = 1;
+  string    name       = 2;
+  string    first_name = 3;
+  Timestamp created_at = 4;
+  Timestamp updated_at = 5;
+}

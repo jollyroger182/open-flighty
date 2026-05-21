@@ -5,6 +5,7 @@ import type { Airline } from './gen/entities/airline_pb'
 import type { Airport } from './gen/entities/airport_pb'
 import type { Connection } from './gen/entities/connection_pb'
 import type { Flight } from './gen/entities/flight_pb'
+import type { Profile } from './gen/entities/profile_pb'
 import type { Entity } from './gen/entity_pb'
 import { SyncRequestSchema, SyncResponseSchema } from './gen/services/sync_pb'
 
@@ -14,6 +15,7 @@ interface DataStoreDataV1 {
 	airports: Airport[]
 	flights: Flight[]
 	connections: Connection[]
+	profiles: Profile[]
 	syncUrl?: string
 }
 
@@ -24,6 +26,7 @@ export class DataStore {
 	airports = new Map<string, Airport>()
 	flights = new Map<string, Flight>()
 	connections = new Map<string, Connection>()
+	profiles = new Map<string, Profile>()
 
 	private syncUrl?: string
 	#syncChain: Promise<void> = Promise.resolve()
@@ -69,6 +72,8 @@ export class DataStore {
 				this.flights.set(item.flight.id, item.flight)
 			} else if (item.connection) {
 				this.connections.set(item.connection.id, item.connection)
+			} else if (item.profile) {
+				this.profiles.set(item.profile.id, item.profile)
 			}
 		}
 	}
@@ -80,6 +85,7 @@ export class DataStore {
 			airports: Array.from(this.airports.values()),
 			flights: Array.from(this.flights.values()),
 			connections: Array.from(this.connections.values()),
+			profiles: Array.from(this.profiles.values()),
 			syncUrl: this.syncUrl,
 		}
 	}
@@ -91,6 +97,7 @@ export class DataStore {
 			data.airports.forEach((x) => store.airports.set(x.id, x))
 			data.flights.forEach((x) => store.flights.set(x.id, x))
 			data.connections.forEach((x) => store.connections.set(x.id, x))
+			data.profiles.forEach((x) => store.profiles.set(x.id, x))
 			store.syncUrl = data.syncUrl
 			return store
 		}

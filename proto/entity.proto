@@ -3,11 +3,13 @@ syntax = "proto3";
 import "entities/airline.proto";
 import "entities/airport.proto";
 import "entities/connection.proto";
+import "entities/profile.proto";
 import "entities/flight.proto";
 
 message Entity {
   Airport    airport    = 1;
   Airline    airline    = 2;
   Connection connection = 5;
+  Profile    profile    = 8;
   Flight     flight     = 15;
 }

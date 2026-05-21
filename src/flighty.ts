@@ -114,6 +114,10 @@ export class Flighty {
 		})
 	}
 
+	friends() {
+		return filter(this.store.profiles.values(), (f) => f.id !== this.userId)
+	}
+
 	async request(url: string | URL, options: RequestInit = {}) {
 		const resp = await fetch(url, {
 			...options,
