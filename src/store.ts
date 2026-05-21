@@ -3,6 +3,7 @@ import { FlightyError } from './error'
 import type { Flighty } from './flighty'
 import type { Airline } from './gen/entities/airline_pb'
 import type { Airport } from './gen/entities/airport_pb'
+import type { Connection } from './gen/entities/connection_pb'
 import type { Flight } from './gen/entities/flight_pb'
 import type { Entity } from './gen/entity_pb'
 import { SyncRequestSchema, SyncResponseSchema } from './gen/services/sync_pb'
@@ -12,6 +13,7 @@ interface DataStoreDataV1 {
 	airlines: Airline[]
 	airports: Airport[]
 	flights: Flight[]
+	connections: Connection[]
 	syncUrl?: string
 }
 
@@ -21,6 +23,7 @@ export class DataStore {
 	airlines = new Map<string, Airline>()
 	airports = new Map<string, Airport>()
 	flights = new Map<string, Flight>()
+	connections = new Map<string, Connection>()
 
 	private syncUrl?: string
 	#syncChain: Promise<void> = Promise.resolve()
@@ -64,6 +67,8 @@ export class DataStore {
 				this.airports.set(item.airport.id, item.airport)
 			} else if (item.flight) {
 				this.flights.set(item.flight.id, item.flight)
+			} else if (item.connection) {
+				this.connections.set(item.connection.id, item.connection)
 			}
 		}
 	}
@@ -74,6 +79,7 @@ export class DataStore {
 			airlines: Array.from(this.airlines.values()),
 			airports: Array.from(this.airports.values()),
 			flights: Array.from(this.flights.values()),
+			connections: Array.from(this.connections.values()),
 			syncUrl: this.syncUrl,
 		}
 	}
@@ -84,6 +90,7 @@ export class DataStore {
 			data.airlines.forEach((x) => store.airlines.set(x.id, x))
 			data.airports.forEach((x) => store.airports.set(x.id, x))
 			data.flights.forEach((x) => store.flights.set(x.id, x))
+			data.connections.forEach((x) => store.connections.set(x.id, x))
 			store.syncUrl = data.syncUrl
 			return store
 		}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+import "common.proto";
+import "entities/airport.proto";
+
+message Connection {
+  string          id                 = 1;
+  string          inbound_flight_id  = 2;
+  string          outbound_flight_id = 3;
+  Airport         airport            = 4;
+  string          user_id            = 5;
+  Timestamp       created_at         = 6;
+  Timestamp       updated_at         = 7;
+  ConnectionTimes connection_times   = 9;
+}
+
+message ConnectionTimes {
+  int32 bucket1 = 1;
+  int32 bucket2 = 2;
+  int32 bucket3 = 3;
+  int32 bucket4 = 4;
+}

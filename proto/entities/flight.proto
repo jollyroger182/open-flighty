@@ -9,15 +9,15 @@ message Flight {
   FlightCore core        = 2;
   bool       is_archived = 3;
   // field 4: [inferred] unknown
-  bool is_my_flight = 5;
+  // field 5: [inferred] unknown
   // field 6: [inferred] unknown
   int32 import_source = 7;   // [inferred] how flight was added (3=search)
   // field 8: [inferred] unknown
-  string user_id     = 9;
-  string sharing_url = 10;
-	Timestamp created_at = 11;  // has nanos
-	Timestamp updated_at = 12;  // has nanos
-	Timestamp deleted_at = 13;
+  string    user_id     = 9;
+  string    sharing_url = 10;
+  Timestamp created_at  = 11;  // has nanos
+  Timestamp updated_at  = 12;  // has nanos
+  Timestamp deleted_at  = 13;
 }
 
 message FlightCore {
@@ -40,7 +40,7 @@ message FlightCore {
   int32  distance_km = 17;
   FaaTmi faa_tmi     = 18;
   // fields 19–20: [inferred] unknown
-  // string airline_id = 21;  // reference to Airline.id
+  string airline_id = 21;
 }
 
 message DepartureLeg {
@@ -52,7 +52,7 @@ message DepartureLeg {
   CheckInSchedule check_in_schedule = 8;   // check-in desk open/close
   WeatherInfo     weather           = 9;
   // field 10: [inferred] unknown
-  // string airport_id = 11;  // reference to Airport.id
+  string airport_id = 11;  // reference to Airport.id
 }
 
 message ArrivalLeg {
@@ -72,7 +72,7 @@ message Codeshare {
   Airline airline           = 1;
   string  number            = 2;  // e.g. "356"
   bool    operates_aircraft = 3;  // true if this airline operates the actual aircraft
-  // string airline_id        = 4;  // reference to Airline.id
+  string  airline_id        = 4;  // reference to Airline.id
 }
 
 message Equipment {

@@ -1,9 +1,8 @@
 import { create, fromBinary, toBinary, type DescMessage } from '@bufbuild/protobuf'
 import { FlightyError, FlightyRequestError } from './error'
 import { SearchRequestSchema, SearchResponseSchema } from './gen/services/search_pb'
-import { SyncRequestSchema, SyncResponseSchema } from './gen/services/sync_pb'
 import { DataStore } from './store'
-import { filter } from './utils'
+import { filter, getJwtPayload } from './utils'
 
 interface FlightyOptions {
 	token: string
@@ -13,11 +12,17 @@ interface FlightyOptions {
 
 type SearchRouteEndpoint = { airport: string; city?: never } | { airport?: never; city: string }
 
+interface GetFlightParams {
+	includeDeleted?: boolean
+	includeFriends?: boolean
+}
+
 export class Flighty {
 	private token: string
 	private buildToken: string
 	store: DataStore
 
+	private userId: string
 	private userAgent: string
 
 	constructor(options: FlightyOptions) {
@@ -25,16 +30,17 @@ export class Flighty {
 		this.buildToken = options.buildToken
 		this.store = options.store || new DataStore()
 
-		const payloadSection = this.buildToken.split('.')[1]
-		if (!payloadSection) {
-			throw new FlightyError('Build token provided is not a valid JWT')
-		}
-		const padded = payloadSection + '='.repeat((4 - (payloadSection.length % 4)) % 4)
-		const payload = JSON.parse(Buffer.from(padded, 'base64').toString('utf8'))
-		if (!payload.version || !payload.build) {
+		const buildPayload = getJwtPayload(this.buildToken)
+		if (!buildPayload.version || !buildPayload.build) {
 			throw new FlightyError('Build token provided is missing version or build field')
 		}
-		this.userAgent = `Flighty ${payload.version} (${payload.build}) com.flightyapp.flighty`
+		this.userAgent = `Flighty ${buildPayload.version} (${buildPayload.build}) com.flightyapp.flighty`
+
+		const payload = getJwtPayload(this.token)
+		if (!payload.sub) {
+			throw new FlightyError('Token provided is missing sub field')
+		}
+		this.userId = payload.sub
 	}
 
 	get search() {
@@ -100,8 +106,12 @@ export class Flighty {
 		return this.store.sync(this)
 	}
 
-	get flights() {
-		return filter(this.store.flights.values(), (f) => f.isMyFlight)
+	flights(params?: GetFlightParams) {
+		return filter(this.store.flights.values(), (f) => {
+			if (!params?.includeDeleted && f.deletedAt) return false
+			if (!params?.includeFriends && f.userId !== this.userId) return false
+			return true
+		})
 	}
 
 	async request(url: string | URL, options: RequestInit = {}) {
@@ -142,7 +152,6 @@ export class Flighty {
 				accept: 'application/x-protobuf',
 			},
 		})
-		console.log(resp.status)
 		const data = await resp.bytes()
 
 		return fromBinary(schema, data)
