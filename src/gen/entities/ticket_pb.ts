@@ -12,7 +12,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file entities/ticket.proto.
  */
 export const file_entities_ticket: GenFile = /*@__PURE__*/
-  fileDesc("ChVlbnRpdGllcy90aWNrZXQucHJvdG8ilwEKBlRpY2tldBIKCgJpZBgBIAEoCRILCgNwbnIYAiABKAkSDAoEc2VhdBgDIAEoCRITCgtjYWJpbl9jbGFzcxgFIAEoBRIPCgd1c2VyX2lkGAYgASgJEh4KCmNyZWF0ZWRfYXQYByABKAsyCi5UaW1lc3RhbXASIAoMbGFzdF91cGRhdGVkGAggASgLMgouVGltZXN0YW1wYgZwcm90bzM", [file_common]);
+  fileDesc("ChVlbnRpdGllcy90aWNrZXQucHJvdG8ijQIKBlRpY2tldBIKCgJpZBgBIAEoCRIQCgNwbnIYAiABKAlIAIgBARIRCgRzZWF0GAMgASgJSAGIAQESFgoJc2VhdF90eXBlGAQgASgFSAKIAQESGAoLY2FiaW5fY2xhc3MYBSABKAVIA4gBARIPCgd1c2VyX2lkGAYgASgJEh4KCmNyZWF0ZWRfYXQYByABKAsyCi5UaW1lc3RhbXASIAoMbGFzdF91cGRhdGVkGAggASgLMgouVGltZXN0YW1wEhMKBnJlYXNvbhgKIAEoBUgEiAEBQgYKBF9wbnJCBwoFX3NlYXRCDAoKX3NlYXRfdHlwZUIOCgxfY2FiaW5fY2xhc3NCCQoHX3JlYXNvbmIGcHJvdG8z", [file_common]);
 
 /**
  * @generated from message Ticket
@@ -24,19 +24,26 @@ export type Ticket = Message<"Ticket"> & {
   id: string;
 
   /**
-   * @generated from field: string pnr = 2;
+   * @generated from field: optional string pnr = 2;
    */
-  pnr: string;
+  pnr?: string | undefined;
 
   /**
-   * @generated from field: string seat = 3;
+   * @generated from field: optional string seat = 3;
    */
-  seat: string;
+  seat?: string | undefined;
 
   /**
-   * @generated from field: int32 cabin_class = 5;
+   * aisle, middle, window, pilot, captain, jumpseat
+   *
+   * @generated from field: optional int32 seat_type = 4;
    */
-  cabinClass: number;
+  seatType?: number | undefined;
+
+  /**
+   * @generated from field: optional int32 cabin_class = 5;
+   */
+  cabinClass?: number | undefined;
 
   /**
    * @generated from field: string user_id = 6;
@@ -52,6 +59,13 @@ export type Ticket = Message<"Ticket"> & {
    * @generated from field: Timestamp last_updated = 8;
    */
   lastUpdated?: Timestamp | undefined;
+
+  /**
+   * 0=personal, 1=business?, 2=crew?
+   *
+   * @generated from field: optional int32 reason = 10;
+   */
+  reason?: number | undefined;
 };
 
 /**

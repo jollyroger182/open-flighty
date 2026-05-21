@@ -3,12 +3,13 @@ syntax = "proto3";
 import "common.proto";
 
 message Ticket {
-  string id   = 1;
-  string pnr  = 2;
-  string seat = 3;
-
-  int32     cabin_class  = 5;
-  string    user_id      = 6;
-  Timestamp created_at   = 7;
-  Timestamp last_updated = 8;
+  string          id           = 1;
+  optional string pnr          = 2;
+  optional string seat         = 3;
+  optional int32  seat_type    = 4;  // aisle, middle, window, pilot, captain, jumpseat
+  optional int32  cabin_class  = 5;
+  string          user_id      = 6;
+  Timestamp       created_at   = 7;
+  Timestamp       last_updated = 8;
+  optional int32  reason       = 10;  // 0=personal, 1=business?, 2=crew?
 }
