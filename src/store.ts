@@ -7,6 +7,16 @@ import type { Flight } from './gen/entities/flight_pb'
 import type { Entity } from './gen/entity_pb'
 import { SyncRequestSchema, SyncResponseSchema } from './gen/services/sync_pb'
 
+interface DataStoreDataV1 {
+	version: 1
+	airlines: Airline[]
+	airports: Airport[]
+	flights: Flight[]
+	syncUrl?: string
+}
+
+export type DataStoreData = DataStoreDataV1
+
 export class DataStore {
 	airlines = new Map<string, Airline>()
 	airports = new Map<string, Airport>()
@@ -15,20 +25,20 @@ export class DataStore {
 	private syncUrl?: string
 	#syncChain: Promise<void> = Promise.resolve()
 
-	constructor(public client: Flighty) {}
+	constructor() {}
 
-	sync() {
-		return (this.#syncChain = this.#syncChain.then(() => this.#sync()))
+	sync(client: Flighty) {
+		return (this.#syncChain = this.#syncChain.then(() => this.#sync(client)))
 	}
 
-	async #sync(): Promise<void> {
+	async #sync(client: Flighty): Promise<void> {
 		const request = create(SyncRequestSchema, {})
 		const body = toBinary(SyncRequestSchema, request)
 
 		const url = new URL(this.syncUrl ?? 'https://api.flightyapp.com/v1/sync/full')
 		url.searchParams.set('fast_flight_sync', 'true')
 
-		const resp = await this.client.protoRequest(url, {
+		const resp = await client.protoRequest(url, {
 			method: 'POST',
 			schema: SyncResponseSchema,
 			body,
@@ -42,7 +52,7 @@ export class DataStore {
 		this.#handleItems(resp.items)
 
 		if (resp.pagination.hasMore) {
-			return this.#sync()
+			return this.#sync(client)
 		}
 	}
 
@@ -56,5 +66,27 @@ export class DataStore {
 				this.flights.set(item.flight.id, item.flight)
 			}
 		}
+	}
+
+	serialize(): DataStoreDataV1 {
+		return {
+			version: 1,
+			airlines: Array.from(this.airlines.values()),
+			airports: Array.from(this.airports.values()),
+			flights: Array.from(this.flights.values()),
+			syncUrl: this.syncUrl,
+		}
+	}
+
+	static deserialize(data: DataStoreData) {
+		if (data.version === 1) {
+			const store = new DataStore()
+			data.airlines.forEach((x) => store.airlines.set(x.id, x))
+			data.airports.forEach((x) => store.airports.set(x.id, x))
+			data.flights.forEach((x) => store.flights.set(x.id, x))
+			store.syncUrl = data.syncUrl
+			return store
+		}
+		throw new FlightyError(`Unknown datastore serialization version ${data.version}`)
 	}
 }

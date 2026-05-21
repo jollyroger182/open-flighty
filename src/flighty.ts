@@ -3,6 +3,7 @@ import { FlightyError, FlightyRequestError } from './error'
 import { SearchRequestSchema, SearchResponseSchema } from './gen/services/search_pb'
 import { SyncRequestSchema, SyncResponseSchema } from './gen/services/sync_pb'
 import { DataStore } from './store'
+import { filter } from './utils'
 
 interface FlightyOptions {
 	token: string
@@ -22,8 +23,7 @@ export class Flighty {
 	constructor(options: FlightyOptions) {
 		this.token = options.token
 		this.buildToken = options.buildToken
-		this.store = options.store || new DataStore(this)
-		this.store.client = this
+		this.store = options.store || new DataStore()
 
 		const payloadSection = this.buildToken.split('.')[1]
 		if (!payloadSection) {
@@ -97,7 +97,11 @@ export class Flighty {
 	}
 
 	sync() {
-		return this.store.sync()
+		return this.store.sync(this)
+	}
+
+	get flights() {
+		return filter(this.store.flights.values(), (f) => f.isMyFlight)
 	}
 
 	async request(url: string | URL, options: RequestInit = {}) {
