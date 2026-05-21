@@ -1,4 +1,4 @@
-import { create, toBinary } from '@bufbuild/protobuf'
+import { create, fromBinary, toBinary } from '@bufbuild/protobuf'
 import { FlightyError } from './error'
 import type { Flighty } from './flighty'
 import type { Airline } from './gen/entities/airline_pb'
@@ -8,18 +8,7 @@ import type { Flight } from './gen/entities/flight_pb'
 import type { Profile } from './gen/entities/profile_pb'
 import type { Entity } from './gen/entity_pb'
 import { SyncRequestSchema, SyncResponseSchema } from './gen/services/sync_pb'
-
-interface DataStoreDataV1 {
-	version: 1
-	airlines: Airline[]
-	airports: Airport[]
-	flights: Flight[]
-	connections: Connection[]
-	profiles: Profile[]
-	syncUrl?: string
-}
-
-export type DataStoreData = DataStoreDataV1
+import { DataStorageSchema, type DataStorage } from './gen/custom/store_pb'
 
 export class DataStore {
 	airlines = new Map<string, Airline>()
@@ -78,29 +67,39 @@ export class DataStore {
 		}
 	}
 
-	serialize(): DataStoreDataV1 {
-		return {
-			version: 1,
-			airlines: Array.from(this.airlines.values()),
-			airports: Array.from(this.airports.values()),
-			flights: Array.from(this.flights.values()),
-			connections: Array.from(this.connections.values()),
-			profiles: Array.from(this.profiles.values()),
-			syncUrl: this.syncUrl,
+	serialize(): Buffer {
+		const storage: DataStorage = {
+			$typeName: 'DataStorage',
+			v1: {
+				$typeName: 'DataStorageV1',
+				entities: [
+					...toEntities(this.airlines, 'airline'),
+					...toEntities(this.airports, 'airport'),
+					...toEntities(this.flights, 'flight'),
+					...toEntities(this.connections, 'connection'),
+					...toEntities(this.profiles, 'profile'),
+				],
+				syncUrl: this.syncUrl || '',
+			},
 		}
+		return Buffer.from(toBinary(DataStorageSchema, storage))
 	}
 
-	static deserialize(data: DataStoreData) {
-		if (data.version === 1) {
+	static deserialize(data: Buffer | ArrayBuffer) {
+		const storage = fromBinary(DataStorageSchema, new Uint8Array(data))
+		if (storage.v1) {
 			const store = new DataStore()
-			data.airlines.forEach((x) => store.airlines.set(x.id, x))
-			data.airports.forEach((x) => store.airports.set(x.id, x))
-			data.flights.forEach((x) => store.flights.set(x.id, x))
-			data.connections.forEach((x) => store.connections.set(x.id, x))
-			data.profiles.forEach((x) => store.profiles.set(x.id, x))
-			store.syncUrl = data.syncUrl
+			store.#handleItems(storage.v1.entities)
+			store.syncUrl = storage.v1.syncUrl || undefined
 			return store
 		}
-		throw new FlightyError(`Unknown datastore serialization version ${data.version}`)
+		throw new FlightyError(`Unknown datastore serialization version`)
 	}
+}
+
+function toEntities<K extends keyof Omit<Entity, '$typeName' | '$unknown'>>(
+	map: Map<unknown, Entity[K]>,
+	key: K,
+) {
+	return Array.from(map.values(), (x): Entity => ({ $typeName: 'Entity', [key]: x }))
 }

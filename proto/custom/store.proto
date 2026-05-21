@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+import "entity.proto";
+
+message DataStorage {
+  DataStorageV1 v1 = 1;
+}
+
+message DataStorageV1 {
+  repeated Entity entities = 1;
+  string          sync_url = 2;
+}
