@@ -12,6 +12,8 @@ import type { Connection } from "./entities/connection_pb";
 import { file_entities_connection } from "./entities/connection_pb";
 import type { Profile } from "./entities/profile_pb";
 import { file_entities_profile } from "./entities/profile_pb";
+import type { Ticket } from "./entities/ticket_pb";
+import { file_entities_ticket } from "./entities/ticket_pb";
 import type { Flight } from "./entities/flight_pb";
 import { file_entities_flight } from "./entities/flight_pb";
 import type { Message } from "@bufbuild/protobuf";
@@ -20,7 +22,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file entity.proto.
  */
 export const file_entity: GenFile = /*@__PURE__*/
-  fileDesc("CgxlbnRpdHkucHJvdG8ikwEKBkVudGl0eRIZCgdhaXJwb3J0GAEgASgLMgguQWlycG9ydBIZCgdhaXJsaW5lGAIgASgLMgguQWlybGluZRIfCgpjb25uZWN0aW9uGAUgASgLMgsuQ29ubmVjdGlvbhIZCgdwcm9maWxlGAggASgLMgguUHJvZmlsZRIXCgZmbGlnaHQYDyABKAsyBy5GbGlnaHRiBnByb3RvMw", [file_entities_airline, file_entities_airport, file_entities_connection, file_entities_profile, file_entities_flight]);
+  fileDesc("CgxlbnRpdHkucHJvdG8irAEKBkVudGl0eRIZCgdhaXJwb3J0GAEgASgLMgguQWlycG9ydBIZCgdhaXJsaW5lGAIgASgLMgguQWlybGluZRIfCgpjb25uZWN0aW9uGAUgASgLMgsuQ29ubmVjdGlvbhIZCgdwcm9maWxlGAggASgLMgguUHJvZmlsZRIXCgZ0aWNrZXQYDCABKAsyBy5UaWNrZXQSFwoGZmxpZ2h0GA8gASgLMgcuRmxpZ2h0YgZwcm90bzM", [file_entities_airline, file_entities_airport, file_entities_connection, file_entities_profile, file_entities_ticket, file_entities_flight]);
 
 /**
  * @generated from message Entity
@@ -45,6 +47,11 @@ export type Entity = Message<"Entity"> & {
    * @generated from field: Profile profile = 8;
    */
   profile?: Profile | undefined;
+
+  /**
+   * @generated from field: Ticket ticket = 12;
+   */
+  ticket?: Ticket | undefined;
 
   /**
    * @generated from field: Flight flight = 15;

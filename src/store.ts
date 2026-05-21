@@ -1,14 +1,15 @@
 import { create, fromBinary, toBinary } from '@bufbuild/protobuf'
 import { FlightyError } from './error'
 import type { Flighty } from './flighty'
+import { DataStorageSchema, type DataStorage } from './gen/custom/store_pb'
 import type { Airline } from './gen/entities/airline_pb'
 import type { Airport } from './gen/entities/airport_pb'
 import type { Connection } from './gen/entities/connection_pb'
 import type { Flight } from './gen/entities/flight_pb'
 import type { Profile } from './gen/entities/profile_pb'
+import type { Ticket } from './gen/entities/ticket_pb'
 import type { Entity } from './gen/entity_pb'
 import { SyncRequestSchema, SyncResponseSchema } from './gen/services/sync_pb'
-import { DataStorageSchema, type DataStorage } from './gen/custom/store_pb'
 
 export class DataStore {
 	airlines = new Map<string, Airline>()
@@ -16,6 +17,7 @@ export class DataStore {
 	flights = new Map<string, Flight>()
 	connections = new Map<string, Connection>()
 	profiles = new Map<string, Profile>()
+	tickets = new Map<string, Ticket>()
 
 	private syncUrl?: string
 	#syncChain: Promise<void> = Promise.resolve()
@@ -63,6 +65,8 @@ export class DataStore {
 				this.connections.set(item.connection.id, item.connection)
 			} else if (item.profile) {
 				this.profiles.set(item.profile.id, item.profile)
+			} else if (item.ticket) {
+				this.tickets.set(item.ticket.id, item.ticket)
 			}
 		}
 	}
@@ -78,6 +82,7 @@ export class DataStore {
 					...toEntities(this.flights, 'flight'),
 					...toEntities(this.connections, 'connection'),
 					...toEntities(this.profiles, 'profile'),
+					...toEntities(this.tickets, 'ticket'),
 				],
 				syncUrl: this.syncUrl || '',
 			},

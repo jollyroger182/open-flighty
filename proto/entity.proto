@@ -4,6 +4,7 @@ import "entities/airline.proto";
 import "entities/airport.proto";
 import "entities/connection.proto";
 import "entities/profile.proto";
+import "entities/ticket.proto";
 import "entities/flight.proto";
 
 message Entity {
@@ -11,5 +12,6 @@ message Entity {
   Airline    airline    = 2;
   Connection connection = 5;
   Profile    profile    = 8;
+  Ticket     ticket     = 12;
   Flight     flight     = 15;
 }
