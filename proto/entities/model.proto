@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "common.proto";
+
+message Model {
+  string          id                 = 1;
+  string          name               = 2;
+  string          iata               = 3;
+  optional string icao               = 4;
+  string          manufacturer       = 5;
+  Timestamp       created_at         = 6;
+  Timestamp       updated_at         = 7;
+  optional uint32 passenger_capacity = 9;
+  string          full_name          = 10;
+}

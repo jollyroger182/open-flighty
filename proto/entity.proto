@@ -7,6 +7,7 @@ import "entities/profile.proto";
 import "entities/ticket.proto";
 import "entities/flight.proto";
 import "entities/city.proto";
+import "entities/model.proto";
 
 message Entity {
   Airport    airport    = 1;
@@ -16,4 +17,5 @@ message Entity {
   Ticket     ticket     = 12;
   Flight     flight     = 15;
   City       city       = 19;
+  Model      model      = 22;
 }
