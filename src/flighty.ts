@@ -2,7 +2,8 @@ import { create, fromBinary, toBinary, type DescMessage } from '@bufbuild/protob
 import { FlightyError, FlightyRequestError } from './error'
 import { SearchRequestSchema, SearchResponseSchema } from './gen/services/search_pb'
 import { DataStore } from './store'
-import { filter, getJwtPayload } from './utils'
+import { filter, getJwtPayload, map } from './utils'
+import { Airline, Flight, User } from './resources'
 
 interface FlightyOptions {
 	token: string
@@ -107,15 +108,30 @@ export class Flighty {
 	}
 
 	flights(params?: GetFlightParams) {
-		return filter(this.store.flights.values(), (f) => {
-			if (!params?.includeDeleted && f.deletedAt) return false
-			if (!params?.includeFriends && f.userId !== this.userId) return false
-			return true
-		})
+		return map(
+			filter(this.store.flights.values(), (f) => {
+				if (!params?.includeDeleted && f.deletedAt) return false
+				if (!params?.includeFriends && f.userId !== this.userId) return false
+				return true
+			}),
+			(f) => new Flight(this, f.id),
+		)
 	}
 
 	friends() {
 		return filter(this.store.profiles.values(), (f) => f.id !== this.userId)
+	}
+
+	get me() {
+		return this.user(this.userId)
+	}
+
+	user(id: string) {
+		return new User(this, id)
+	}
+
+	airline(id: string) {
+		return new Airline(this, id)
 	}
 
 	async request(url: string | URL, options: RequestInit = {}) {

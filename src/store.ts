@@ -4,14 +4,14 @@ import type { Flighty } from './flighty'
 import { DataStorageSchema, type DataStorage } from './gen/custom/store_pb'
 import type { Airline } from './gen/entities/airline_pb'
 import type { Airport } from './gen/entities/airport_pb'
+import type { City } from './gen/entities/city_pb'
 import type { Connection } from './gen/entities/connection_pb'
 import type { Flight } from './gen/entities/flight_pb'
+import type { Model } from './gen/entities/model_pb'
 import type { Profile } from './gen/entities/profile_pb'
 import type { Ticket } from './gen/entities/ticket_pb'
-import { EntitySchema, type Entity } from './gen/entity_pb'
+import { type Entity } from './gen/entity_pb'
 import { SyncRequestSchema, SyncResponseSchema } from './gen/services/sync_pb'
-import type { City } from './gen/entities/city_pb'
-import type { Model } from './gen/entities/model_pb'
 
 export class DataStore {
 	airlines = new Map<string, Airline>()
@@ -75,23 +75,16 @@ export class DataStore {
 				this.cities.set(item.city.id, item.city)
 			} else if (item.model) {
 				this.models.set(item.model.id, item.model)
-			} else if (
-				item.$unknown?.[0]?.no !== 14 && // session info?
-				item.$unknown?.[0]?.no !== 11 && // ?
-				item.$unknown?.[0]?.no !== 16 // login info
-			) {
-				// 4 = friends
-				// 3 = ... unfriend? still friends? no user info
-				// 10 = ... same?
-				// 17 = ???, just a boolean and created/updated
-				// 20 = ???, list of uuids in 1 and same in 2 and created/updated
-				// 24 = ... current location?
-				console.log(
-					'unhandled type',
-					item.$unknown?.[0]?.no,
-					Buffer.from(toBinary(EntitySchema, item)).toString('base64'),
-				)
 			}
+			// unhandled entity types:
+			// 3 = friend added
+			// 4 = flight sharing
+			// 10 = ???
+			// 14 = session info?
+			// 16 = login info?
+			// 17 = ???, just a boolean and created/updated
+			// 20 = ???, list of uuids in 1 and same in 2 and created/updated
+			// 24 = ... current location?
 		}
 	}
 
