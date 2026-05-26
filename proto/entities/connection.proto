@@ -11,12 +11,13 @@ message Connection {
   string          user_id            = 5;
   Timestamp       created_at         = 6;
   Timestamp       updated_at         = 7;
+  Timestamp       deleted_at         = 8;
   ConnectionTimes connection_times   = 9;
 }
 
 message ConnectionTimes {
-  int32 bucket1 = 1;
-  int32 bucket2 = 2;
-  int32 bucket3 = 3;
-  int32 bucket4 = 4;
+  int32 minimum_connection_time = 1;
+  int32 risky_threshold         = 2;  // thresh between risky and tight
+  int32 tight_threshold         = 3;  // thresh between tight and normal
+  int32 normal_threshold        = 4;  // thresh between normal and relaxed
 }

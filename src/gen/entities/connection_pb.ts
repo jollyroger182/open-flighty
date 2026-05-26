@@ -14,7 +14,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file entities/connection.proto.
  */
 export const file_entities_connection: GenFile = /*@__PURE__*/
-  fileDesc("ChllbnRpdGllcy9jb25uZWN0aW9uLnByb3RvIucBCgpDb25uZWN0aW9uEgoKAmlkGAEgASgJEhkKEWluYm91bmRfZmxpZ2h0X2lkGAIgASgJEhoKEm91dGJvdW5kX2ZsaWdodF9pZBgDIAEoCRIZCgdhaXJwb3J0GAQgASgLMgguQWlycG9ydBIPCgd1c2VyX2lkGAUgASgJEh4KCmNyZWF0ZWRfYXQYBiABKAsyCi5UaW1lc3RhbXASHgoKdXBkYXRlZF9hdBgHIAEoCzIKLlRpbWVzdGFtcBIqChBjb25uZWN0aW9uX3RpbWVzGAkgASgLMhAuQ29ubmVjdGlvblRpbWVzIlUKD0Nvbm5lY3Rpb25UaW1lcxIPCgdidWNrZXQxGAEgASgFEg8KB2J1Y2tldDIYAiABKAUSDwoHYnVja2V0MxgDIAEoBRIPCgdidWNrZXQ0GAQgASgFYgZwcm90bzM", [file_common, file_entities_airport]);
+  fileDesc("ChllbnRpdGllcy9jb25uZWN0aW9uLnByb3RvIocCCgpDb25uZWN0aW9uEgoKAmlkGAEgASgJEhkKEWluYm91bmRfZmxpZ2h0X2lkGAIgASgJEhoKEm91dGJvdW5kX2ZsaWdodF9pZBgDIAEoCRIZCgdhaXJwb3J0GAQgASgLMgguQWlycG9ydBIPCgd1c2VyX2lkGAUgASgJEh4KCmNyZWF0ZWRfYXQYBiABKAsyCi5UaW1lc3RhbXASHgoKdXBkYXRlZF9hdBgHIAEoCzIKLlRpbWVzdGFtcBIeCgpkZWxldGVkX2F0GAggASgLMgouVGltZXN0YW1wEioKEGNvbm5lY3Rpb25fdGltZXMYCSABKAsyEC5Db25uZWN0aW9uVGltZXMifgoPQ29ubmVjdGlvblRpbWVzEh8KF21pbmltdW1fY29ubmVjdGlvbl90aW1lGAEgASgFEhcKD3Jpc2t5X3RocmVzaG9sZBgCIAEoBRIXCg90aWdodF90aHJlc2hvbGQYAyABKAUSGAoQbm9ybWFsX3RocmVzaG9sZBgEIAEoBWIGcHJvdG8z", [file_common, file_entities_airport]);
 
 /**
  * @generated from message Connection
@@ -56,6 +56,11 @@ export type Connection = Message<"Connection"> & {
   updatedAt?: Timestamp | undefined;
 
   /**
+   * @generated from field: Timestamp deleted_at = 8;
+   */
+  deletedAt?: Timestamp | undefined;
+
+  /**
    * @generated from field: ConnectionTimes connection_times = 9;
    */
   connectionTimes?: ConnectionTimes | undefined;
@@ -73,24 +78,30 @@ export const ConnectionSchema: GenMessage<Connection> = /*@__PURE__*/
  */
 export type ConnectionTimes = Message<"ConnectionTimes"> & {
   /**
-   * @generated from field: int32 bucket1 = 1;
+   * @generated from field: int32 minimum_connection_time = 1;
    */
-  bucket1: number;
+  minimumConnectionTime: number;
 
   /**
-   * @generated from field: int32 bucket2 = 2;
+   * thresh between risky and tight
+   *
+   * @generated from field: int32 risky_threshold = 2;
    */
-  bucket2: number;
+  riskyThreshold: number;
 
   /**
-   * @generated from field: int32 bucket3 = 3;
+   * thresh between tight and normal
+   *
+   * @generated from field: int32 tight_threshold = 3;
    */
-  bucket3: number;
+  tightThreshold: number;
 
   /**
-   * @generated from field: int32 bucket4 = 4;
+   * thresh between normal and relaxed
+   *
+   * @generated from field: int32 normal_threshold = 4;
    */
-  bucket4: number;
+  normalThreshold: number;
 };
 
 /**
