@@ -5,50 +5,45 @@ import "entities/airline.proto";
 import "entities/airport.proto";
 
 message Flight {
-  string     id          = 1;
-  FlightCore core        = 2;
-  bool       is_archived = 3;
-  // field 4: [inferred] unknown
-  // field 5: [inferred] unknown
-  // field 6: [inferred] unknown
-  int32 import_source = 7;   // [inferred] how flight was added (3=search)
-  // field 8: [inferred] unknown
-  string    user_id     = 9;
-  string    sharing_url = 10;
-  Timestamp created_at  = 11;  // has nanos
-  Timestamp updated_at  = 12;  // has nanos
-  Timestamp deleted_at  = 13;
+  string     id            = 1;
+  FlightCore core          = 2;
+  bool       is_archived   = 3;
+  bool       is_mind       = 5;
+  bool       unknown_6     = 6;   // always 1?
+  int32      import_source = 7;   // [inferred] how flight was added (3=search)
+  string     user_id       = 9;
+  string     sharing_url   = 10;
+  Timestamp  created_at    = 11;  // has nanos
+  Timestamp  updated_at    = 12;  // has nanos
+  Timestamp  deleted_at    = 13;
 }
 
 message FlightCore {
-  string             id           = 1;
-  DepartureLeg       departure    = 2;
-  ArrivalLeg         arrival      = 3;
-  Airline            airline      = 4;
-  bool               is_cancelled = 5;
-  repeated Codeshare codeshares   = 6;
-  Equipment          equipment    = 7;
-  // string             callsign     = 8;   // ATC callsign e.g. "CPA356"
-  // field 9: [inferred] unknown (observed 1)
+  string               id              = 1;
+  DepartureLeg         departure       = 2;
+  ArrivalLeg           arrival         = 3;
+  Airline              airline         = 4;
+  bool                 is_cancelled    = 5;
+  repeated Codeshare   codeshares      = 6;
+  Equipment            equipment       = 7;
+  bool                 unknown_9       = 9; // always 1?
   repeated FlightCore  inbound_flights = 10;
   repeated FlightEvent events          = 11;
   DelayForecast        delay_forecast  = 12;
   Timestamp            created         = 13;
   Timestamp            last_updated    = 14;
-  // field 15: [inferred] unknown
-  string number      = 16;  // e.g. "356" (no airline prefix)
-  int32  distance_km = 17;
-  FaaTmi faa_tmi     = 18;
-  // fields 19–20: [inferred] unknown
-  string airline_id = 21;
+  string               number          = 16;  // e.g. "356" (no airline prefix)
+  int32                distance_km     = 17;
+  FaaTmi               faa_tmi         = 18;
+  string               airline_id      = 21;
 }
 
 message DepartureLeg {
-  Airport        airport  = 1;
-  string         terminal = 2;
-  string         gate     = 3;
-  FlightSchedule schedule = 4;
-  // fields 5–7: [inferred] unknown
+  Airport         airport           = 1;
+  string          terminal          = 2;
+  string          gate              = 3;
+  FlightSchedule  schedule          = 4;
+  AirportDelays   airport_delays    = 6;
   CheckInSchedule check_in_schedule = 8;   // check-in desk open/close
   WeatherInfo     weather           = 9;
   // field 10: [inferred] unknown
@@ -56,16 +51,16 @@ message DepartureLeg {
 }
 
 message ArrivalLeg {
-  Airport        scheduled_airport = 1;
-  Airport        actual_airport    = 2;
-  string         terminal          = 3;
-  string         gate              = 4;
-  string         baggage_belt      = 5;
-  WeatherInfo    weather           = 6;
-  FlightSchedule schedule          = 7;
-  // fields 8–12: [inferred] unknown
-  // string scheduled_arrival_airport_id = 13;  // original destination Airport.id
-  // string arrival_airport_id           = 14;  // actual destination (differs if diverted)
+  Airport        scheduled_airport            = 1;
+  Airport        actual_airport               = 2;
+  string         terminal                     = 3;
+  string         gate                         = 4;
+  string         baggage_belt                 = 5;
+  WeatherInfo    weather                      = 6;
+  FlightSchedule schedule                     = 7;
+  AirportDelays  airport_delays               = 9;
+  string         scheduled_arrival_airport_id = 13;  // original destination Airport.id
+  string         actual_arrival_airport_id    = 14;  // actual destination (differs if diverted)
 }
 
 message Codeshare {
@@ -84,7 +79,7 @@ message Equipment {
   string model_icao       = 6;   // e.g. "A333"
   string first_flight     = 7;   // ISO date e.g. "2014-05-19"
   int32  age              = 8;
-  string unknown_9        = 9;
+  string name             = 9;
   string country_code     = 10;  // 2-letter e.g. "HK"
   string manufacturer     = 11;  // e.g. "Airbus"
   string model_id         = 12;  // reference to AircraftType.id
@@ -92,8 +87,14 @@ message Equipment {
 }
 
 message DelayForecast {
-  int32 observations       = 1;
-  int32 delay_mean_minutes = 2;
+  int32 early            = 1;
+  int32 on_time          = 2;
+  int32 late_15m         = 3;
+  int32 late_30m         = 4;
+  int32 late_45m_or_more = 5;
+  int32 canceled         = 6;
+  int32 diverted         = 7;
+  int32 mean_minutes     = 8;
 }
 
 message FaaTmi {
@@ -101,18 +102,35 @@ message FaaTmi {
   int32     code   = 1;
   Timestamp start  = 2;
   Timestamp end    = 3;
-  string    reason = 4;  // e.g. "Weather", "Volume"
+  string    reason = 4;  // e.g. "weather", "volume"
 }
 
 // TODO
 message FlightSchedule {
-  Timestamp gate_original     = 1;
-  Timestamp gate_estimated    = 2;
-  Timestamp gate_actual       = 3;
-  Timestamp runway_original   = 4;
-  Timestamp runway_estimated  = 5;
-  Timestamp runway_actual     = 6;
-  Timestamp initial_gate_time = 10;
+  Timestamp          gate_original       = 1;
+  Timestamp          gate_estimated      = 2;
+  Timestamp          gate_actual         = 3;
+  Timestamp          runway_original     = 4;
+  Timestamp          runway_estimated    = 5;
+  Timestamp          runway_actual       = 6;
+  InitialGateTimeAlt initial_gate_time_3 = 7;
+  InitialGateTime    initial_gate_time_2 = 8;
+  Timestamp          initial_gate_time   = 10;
+}
+
+message InitialGateTimeAlt {
+  InitialGateTime value = 8;
+}
+
+message InitialGateTime {
+  Timestamp value = 10;
+}
+
+message AirportDelays {
+  int32     average_delay_minutes = 1;
+  Timestamp expiration_time       = 3;
+  int32     trend                 = 4;  // 0=increasing, 1=decreasing
+  Timestamp last_updated          = 5;
 }
 
 message CheckInSchedule {
@@ -167,8 +185,8 @@ message GateChange {
 
 message TimingChange {
   bool      is_arrival   = 1;
-  bool      is_estimated = 2;
-  bool      unknown_3    = 3;
+  bool      is_runway    = 2;
+  bool      is_estimated = 3;
   Timestamp at           = 4;
 }
 

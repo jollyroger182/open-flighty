@@ -1,4 +1,6 @@
+import { FlightyError } from '../error'
 import type { Flighty } from '../flighty'
+import type { FlightSchedule } from '../gen/entities/flight_pb'
 
 export class Flight {
 	#id: string
@@ -35,4 +37,32 @@ export class Flight {
 		const code = airline.data.iata || airline.data.icao
 		return `${code}${this.data.core!.number}`
 	}
+
+	get scheduledDepartureTime() {
+		try {
+			return getTimeFromSchedule(this.data.core!.departure!.schedule!)
+		} catch {
+			throw new FlightyError('No departure time found')
+		}
+	}
+
+	get scheduledArrivalTime() {
+		try {
+			return getTimeFromSchedule(this.data.core!.arrival!.schedule!)
+		} catch {
+			throw new FlightyError('No arrival time found')
+		}
+	}
+}
+
+function getTimeFromSchedule(schedule: FlightSchedule) {
+	const timestamp =
+		schedule.gateOriginal ||
+		schedule.initialGateTime ||
+		schedule.initialGateTime2?.value ||
+		schedule.initialGateTime3?.value?.value
+	if (!timestamp) {
+		throw new Error('No gate time found')
+	}
+	return new Date(Number(timestamp.seconds) * 1000)
 }

@@ -16,7 +16,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file entities/flight.proto.
  */
 export const file_entities_flight: GenFile = /*@__PURE__*/
-  fileDesc("ChVlbnRpdGllcy9mbGlnaHQucHJvdG8i4QEKBkZsaWdodBIKCgJpZBgBIAEoCRIZCgRjb3JlGAIgASgLMgsuRmxpZ2h0Q29yZRITCgtpc19hcmNoaXZlZBgDIAEoCBIVCg1pbXBvcnRfc291cmNlGAcgASgFEg8KB3VzZXJfaWQYCSABKAkSEwoLc2hhcmluZ191cmwYCiABKAkSHgoKY3JlYXRlZF9hdBgLIAEoCzIKLlRpbWVzdGFtcBIeCgp1cGRhdGVkX2F0GAwgASgLMgouVGltZXN0YW1wEh4KCmRlbGV0ZWRfYXQYDSABKAsyCi5UaW1lc3RhbXAixgMKCkZsaWdodENvcmUSCgoCaWQYASABKAkSIAoJZGVwYXJ0dXJlGAIgASgLMg0uRGVwYXJ0dXJlTGVnEhwKB2Fycml2YWwYAyABKAsyCy5BcnJpdmFsTGVnEhkKB2FpcmxpbmUYBCABKAsyCC5BaXJsaW5lEhQKDGlzX2NhbmNlbGxlZBgFIAEoCBIeCgpjb2Rlc2hhcmVzGAYgAygLMgouQ29kZXNoYXJlEh0KCWVxdWlwbWVudBgHIAEoCzIKLkVxdWlwbWVudBIkCg9pbmJvdW5kX2ZsaWdodHMYCiADKAsyCy5GbGlnaHRDb3JlEhwKBmV2ZW50cxgLIAMoCzIMLkZsaWdodEV2ZW50EiYKDmRlbGF5X2ZvcmVjYXN0GAwgASgLMg4uRGVsYXlGb3JlY2FzdBIbCgdjcmVhdGVkGA0gASgLMgouVGltZXN0YW1wEiAKDGxhc3RfdXBkYXRlZBgOIAEoCzIKLlRpbWVzdGFtcBIOCgZudW1iZXIYECABKAkSEwoLZGlzdGFuY2Vfa20YESABKAUSGAoHZmFhX3RtaRgSIAEoCzIHLkZhYVRtaRISCgphaXJsaW5lX2lkGBUgASgJIswBCgxEZXBhcnR1cmVMZWcSGQoHYWlycG9ydBgBIAEoCzIILkFpcnBvcnQSEAoIdGVybWluYWwYAiABKAkSDAoEZ2F0ZRgDIAEoCRIhCghzY2hlZHVsZRgEIAEoCzIPLkZsaWdodFNjaGVkdWxlEisKEWNoZWNrX2luX3NjaGVkdWxlGAggASgLMhAuQ2hlY2tJblNjaGVkdWxlEh0KB3dlYXRoZXIYCSABKAsyDC5XZWF0aGVySW5mbxISCgphaXJwb3J0X2lkGAsgASgJIssBCgpBcnJpdmFsTGVnEiMKEXNjaGVkdWxlZF9haXJwb3J0GAEgASgLMgguQWlycG9ydBIgCg5hY3R1YWxfYWlycG9ydBgCIAEoCzIILkFpcnBvcnQSEAoIdGVybWluYWwYAyABKAkSDAoEZ2F0ZRgEIAEoCRIUCgxiYWdnYWdlX2JlbHQYBSABKAkSHQoHd2VhdGhlchgGIAEoCzIMLldlYXRoZXJJbmZvEiEKCHNjaGVkdWxlGAcgASgLMg8uRmxpZ2h0U2NoZWR1bGUiZQoJQ29kZXNoYXJlEhkKB2FpcmxpbmUYASABKAsyCC5BaXJsaW5lEg4KBm51bWJlchgCIAEoCRIZChFvcGVyYXRlc19haXJjcmFmdBgDIAEoCBISCgphaXJsaW5lX2lkGAQgASgJIpECCglFcXVpcG1lbnQSEwoLdGFpbF9udW1iZXIYASABKAkSEgoKbW9kZWxfbmFtZRgCIAEoCRINCgVyYW5nZRgDIAEoBRIWCg5jcnVpc2luZ19zcGVlZBgEIAEoBRISCgptb2RlbF9pYXRhGAUgASgJEhIKCm1vZGVsX2ljYW8YBiABKAkSFAoMZmlyc3RfZmxpZ2h0GAcgASgJEgsKA2FnZRgIIAEoBRIRCgl1bmtub3duXzkYCSABKAkSFAoMY291bnRyeV9jb2RlGAogASgJEhQKDG1hbnVmYWN0dXJlchgLIAEoCRIQCghtb2RlbF9pZBgMIAEoCRIYChBzdGF0c19tb2RlbF9uYW1lGA0gASgJIkEKDURlbGF5Rm9yZWNhc3QSFAoMb2JzZXJ2YXRpb25zGAEgASgFEhoKEmRlbGF5X21lYW5fbWludXRlcxgCIAEoBSJaCgZGYWFUbWkSDAoEY29kZRgBIAEoBRIZCgVzdGFydBgCIAEoCzIKLlRpbWVzdGFtcBIXCgNlbmQYAyABKAsyCi5UaW1lc3RhbXASDgoGcmVhc29uGAQgASgJIo0CCg5GbGlnaHRTY2hlZHVsZRIhCg1nYXRlX29yaWdpbmFsGAEgASgLMgouVGltZXN0YW1wEiIKDmdhdGVfZXN0aW1hdGVkGAIgASgLMgouVGltZXN0YW1wEh8KC2dhdGVfYWN0dWFsGAMgASgLMgouVGltZXN0YW1wEiMKD3J1bndheV9vcmlnaW5hbBgEIAEoCzIKLlRpbWVzdGFtcBIkChBydW53YXlfZXN0aW1hdGVkGAUgASgLMgouVGltZXN0YW1wEiEKDXJ1bndheV9hY3R1YWwYBiABKAsyCi5UaW1lc3RhbXASJQoRaW5pdGlhbF9nYXRlX3RpbWUYCiABKAsyCi5UaW1lc3RhbXAiRgoPQ2hlY2tJblNjaGVkdWxlEhgKBG9wZW4YASABKAsyCi5UaW1lc3RhbXASGQoFY2xvc2UYAiABKAsyCi5UaW1lc3RhbXAizAEKC1dlYXRoZXJJbmZvEhMKC3RlbXBlcmF0dXJlGAEgASgFEhEKCWNvbmRpdGlvbhgCIAEoBRINCgVuaWdodBgDIAEoCBIWCg5jb25kaXRpb25faWNvbhgEIAEoBRIWCg5jb25kaXRpb25fbmFtZRgFIAEoCRIhCgh3YXJuaW5ncxgGIAMoCzIPLldlYXRoZXJXYXJuaW5nEhEKCXVua25vd25fNxgHIAEoBRIgCgxsYXN0X3VwZGF0ZWQYCCABKAsyCi5UaW1lc3RhbXAiQgoOV2VhdGhlcldhcm5pbmcSDQoFdGl0bGUYASABKAkSEwoLZGVzY3JpcHRpb24YAiABKAkSDAoEaWNvbhgDIAEoBSLvAQoLRmxpZ2h0RXZlbnQSHwoLcmVjb3JkZWRfYXQYASABKAsyCi5UaW1lc3RhbXASLwoTYmFnZ2FnZV9iZWx0X2NoYW5nZRgCIAEoCzISLkJhZ2dhZ2VCZWx0Q2hhbmdlEhwKCW9vaV9ldmVudBgFIAEoCzIJLk9vaUV2ZW50EiAKC2dhdGVfY2hhbmdlGAYgASgLMgsuR2F0ZUNoYW5nZRIkCg10aW1pbmdfY2hhbmdlGAkgASgLMg0uVGltaW5nQ2hhbmdlEigKD3RhaWxfYXNzaWdubWVudBgKIAEoCzIPLlRhaWxBc3NpZ25tZW50IikKEUJhZ2dhZ2VCZWx0Q2hhbmdlEhQKDGJhZ2dhZ2VfYmVsdBgBIAEoCSIxCghPb2lFdmVudBINCgV3aGljaBgBIAEoBRIWCgJhdBgCIAEoCzIKLlRpbWVzdGFtcCJACgpHYXRlQ2hhbmdlEhIKCmlzX2Fycml2YWwYASABKAgSEAoIdGVybWluYWwYAiABKAkSDAoEZ2F0ZRgDIAEoCSJjCgxUaW1pbmdDaGFuZ2USEgoKaXNfYXJyaXZhbBgBIAEoCBIUCgxpc19lc3RpbWF0ZWQYAiABKAgSEQoJdW5rbm93bl8zGAMgASgIEhYKAmF0GAQgASgLMgouVGltZXN0YW1wIiUKDlRhaWxBc3NpZ25tZW50EhMKC3RhaWxfbnVtYmVyGAEgASgJYgZwcm90bzM", [file_common, file_entities_airline, file_entities_airport]);
+  fileDesc("ChVlbnRpdGllcy9mbGlnaHQucHJvdG8ihQIKBkZsaWdodBIKCgJpZBgBIAEoCRIZCgRjb3JlGAIgASgLMgsuRmxpZ2h0Q29yZRITCgtpc19hcmNoaXZlZBgDIAEoCBIPCgdpc19taW5kGAUgASgIEhEKCXVua25vd25fNhgGIAEoCBIVCg1pbXBvcnRfc291cmNlGAcgASgFEg8KB3VzZXJfaWQYCSABKAkSEwoLc2hhcmluZ191cmwYCiABKAkSHgoKY3JlYXRlZF9hdBgLIAEoCzIKLlRpbWVzdGFtcBIeCgp1cGRhdGVkX2F0GAwgASgLMgouVGltZXN0YW1wEh4KCmRlbGV0ZWRfYXQYDSABKAsyCi5UaW1lc3RhbXAi2QMKCkZsaWdodENvcmUSCgoCaWQYASABKAkSIAoJZGVwYXJ0dXJlGAIgASgLMg0uRGVwYXJ0dXJlTGVnEhwKB2Fycml2YWwYAyABKAsyCy5BcnJpdmFsTGVnEhkKB2FpcmxpbmUYBCABKAsyCC5BaXJsaW5lEhQKDGlzX2NhbmNlbGxlZBgFIAEoCBIeCgpjb2Rlc2hhcmVzGAYgAygLMgouQ29kZXNoYXJlEh0KCWVxdWlwbWVudBgHIAEoCzIKLkVxdWlwbWVudBIRCgl1bmtub3duXzkYCSABKAgSJAoPaW5ib3VuZF9mbGlnaHRzGAogAygLMgsuRmxpZ2h0Q29yZRIcCgZldmVudHMYCyADKAsyDC5GbGlnaHRFdmVudBImCg5kZWxheV9mb3JlY2FzdBgMIAEoCzIOLkRlbGF5Rm9yZWNhc3QSGwoHY3JlYXRlZBgNIAEoCzIKLlRpbWVzdGFtcBIgCgxsYXN0X3VwZGF0ZWQYDiABKAsyCi5UaW1lc3RhbXASDgoGbnVtYmVyGBAgASgJEhMKC2Rpc3RhbmNlX2ttGBEgASgFEhgKB2ZhYV90bWkYEiABKAsyBy5GYWFUbWkSEgoKYWlybGluZV9pZBgVIAEoCSL0AQoMRGVwYXJ0dXJlTGVnEhkKB2FpcnBvcnQYASABKAsyCC5BaXJwb3J0EhAKCHRlcm1pbmFsGAIgASgJEgwKBGdhdGUYAyABKAkSIQoIc2NoZWR1bGUYBCABKAsyDy5GbGlnaHRTY2hlZHVsZRImCg5haXJwb3J0X2RlbGF5cxgGIAEoCzIOLkFpcnBvcnREZWxheXMSKwoRY2hlY2tfaW5fc2NoZWR1bGUYCCABKAsyEC5DaGVja0luU2NoZWR1bGUSHQoHd2VhdGhlchgJIAEoCzIMLldlYXRoZXJJbmZvEhIKCmFpcnBvcnRfaWQYCyABKAkivAIKCkFycml2YWxMZWcSIwoRc2NoZWR1bGVkX2FpcnBvcnQYASABKAsyCC5BaXJwb3J0EiAKDmFjdHVhbF9haXJwb3J0GAIgASgLMgguQWlycG9ydBIQCgh0ZXJtaW5hbBgDIAEoCRIMCgRnYXRlGAQgASgJEhQKDGJhZ2dhZ2VfYmVsdBgFIAEoCRIdCgd3ZWF0aGVyGAYgASgLMgwuV2VhdGhlckluZm8SIQoIc2NoZWR1bGUYByABKAsyDy5GbGlnaHRTY2hlZHVsZRImCg5haXJwb3J0X2RlbGF5cxgJIAEoCzIOLkFpcnBvcnREZWxheXMSJAocc2NoZWR1bGVkX2Fycml2YWxfYWlycG9ydF9pZBgNIAEoCRIhChlhY3R1YWxfYXJyaXZhbF9haXJwb3J0X2lkGA4gASgJImUKCUNvZGVzaGFyZRIZCgdhaXJsaW5lGAEgASgLMgguQWlybGluZRIOCgZudW1iZXIYAiABKAkSGQoRb3BlcmF0ZXNfYWlyY3JhZnQYAyABKAgSEgoKYWlybGluZV9pZBgEIAEoCSKMAgoJRXF1aXBtZW50EhMKC3RhaWxfbnVtYmVyGAEgASgJEhIKCm1vZGVsX25hbWUYAiABKAkSDQoFcmFuZ2UYAyABKAUSFgoOY3J1aXNpbmdfc3BlZWQYBCABKAUSEgoKbW9kZWxfaWF0YRgFIAEoCRISCgptb2RlbF9pY2FvGAYgASgJEhQKDGZpcnN0X2ZsaWdodBgHIAEoCRILCgNhZ2UYCCABKAUSDAoEbmFtZRgJIAEoCRIUCgxjb3VudHJ5X2NvZGUYCiABKAkSFAoMbWFudWZhY3R1cmVyGAsgASgJEhAKCG1vZGVsX2lkGAwgASgJEhgKEHN0YXRzX21vZGVsX25hbWUYDSABKAkipwEKDURlbGF5Rm9yZWNhc3QSDQoFZWFybHkYASABKAUSDwoHb25fdGltZRgCIAEoBRIQCghsYXRlXzE1bRgDIAEoBRIQCghsYXRlXzMwbRgEIAEoBRIYChBsYXRlXzQ1bV9vcl9tb3JlGAUgASgFEhAKCGNhbmNlbGVkGAYgASgFEhAKCGRpdmVydGVkGAcgASgFEhQKDG1lYW5fbWludXRlcxgIIAEoBSJaCgZGYWFUbWkSDAoEY29kZRgBIAEoBRIZCgVzdGFydBgCIAEoCzIKLlRpbWVzdGFtcBIXCgNlbmQYAyABKAsyCi5UaW1lc3RhbXASDgoGcmVhc29uGAQgASgJIu4CCg5GbGlnaHRTY2hlZHVsZRIhCg1nYXRlX29yaWdpbmFsGAEgASgLMgouVGltZXN0YW1wEiIKDmdhdGVfZXN0aW1hdGVkGAIgASgLMgouVGltZXN0YW1wEh8KC2dhdGVfYWN0dWFsGAMgASgLMgouVGltZXN0YW1wEiMKD3J1bndheV9vcmlnaW5hbBgEIAEoCzIKLlRpbWVzdGFtcBIkChBydW53YXlfZXN0aW1hdGVkGAUgASgLMgouVGltZXN0YW1wEiEKDXJ1bndheV9hY3R1YWwYBiABKAsyCi5UaW1lc3RhbXASMAoTaW5pdGlhbF9nYXRlX3RpbWVfMxgHIAEoCzITLkluaXRpYWxHYXRlVGltZUFsdBItChNpbml0aWFsX2dhdGVfdGltZV8yGAggASgLMhAuSW5pdGlhbEdhdGVUaW1lEiUKEWluaXRpYWxfZ2F0ZV90aW1lGAogASgLMgouVGltZXN0YW1wIjUKEkluaXRpYWxHYXRlVGltZUFsdBIfCgV2YWx1ZRgIIAEoCzIQLkluaXRpYWxHYXRlVGltZSIsCg9Jbml0aWFsR2F0ZVRpbWUSGQoFdmFsdWUYCiABKAsyCi5UaW1lc3RhbXAihAEKDUFpcnBvcnREZWxheXMSHQoVYXZlcmFnZV9kZWxheV9taW51dGVzGAEgASgFEiMKD2V4cGlyYXRpb25fdGltZRgDIAEoCzIKLlRpbWVzdGFtcBINCgV0cmVuZBgEIAEoBRIgCgxsYXN0X3VwZGF0ZWQYBSABKAsyCi5UaW1lc3RhbXAiRgoPQ2hlY2tJblNjaGVkdWxlEhgKBG9wZW4YASABKAsyCi5UaW1lc3RhbXASGQoFY2xvc2UYAiABKAsyCi5UaW1lc3RhbXAizAEKC1dlYXRoZXJJbmZvEhMKC3RlbXBlcmF0dXJlGAEgASgFEhEKCWNvbmRpdGlvbhgCIAEoBRINCgVuaWdodBgDIAEoCBIWCg5jb25kaXRpb25faWNvbhgEIAEoBRIWCg5jb25kaXRpb25fbmFtZRgFIAEoCRIhCgh3YXJuaW5ncxgGIAMoCzIPLldlYXRoZXJXYXJuaW5nEhEKCXVua25vd25fNxgHIAEoBRIgCgxsYXN0X3VwZGF0ZWQYCCABKAsyCi5UaW1lc3RhbXAiQgoOV2VhdGhlcldhcm5pbmcSDQoFdGl0bGUYASABKAkSEwoLZGVzY3JpcHRpb24YAiABKAkSDAoEaWNvbhgDIAEoBSLvAQoLRmxpZ2h0RXZlbnQSHwoLcmVjb3JkZWRfYXQYASABKAsyCi5UaW1lc3RhbXASLwoTYmFnZ2FnZV9iZWx0X2NoYW5nZRgCIAEoCzISLkJhZ2dhZ2VCZWx0Q2hhbmdlEhwKCW9vaV9ldmVudBgFIAEoCzIJLk9vaUV2ZW50EiAKC2dhdGVfY2hhbmdlGAYgASgLMgsuR2F0ZUNoYW5nZRIkCg10aW1pbmdfY2hhbmdlGAkgASgLMg0uVGltaW5nQ2hhbmdlEigKD3RhaWxfYXNzaWdubWVudBgKIAEoCzIPLlRhaWxBc3NpZ25tZW50IikKEUJhZ2dhZ2VCZWx0Q2hhbmdlEhQKDGJhZ2dhZ2VfYmVsdBgBIAEoCSIxCghPb2lFdmVudBINCgV3aGljaBgBIAEoBRIWCgJhdBgCIAEoCzIKLlRpbWVzdGFtcCJACgpHYXRlQ2hhbmdlEhIKCmlzX2Fycml2YWwYASABKAgSEAoIdGVybWluYWwYAiABKAkSDAoEZ2F0ZRgDIAEoCSJjCgxUaW1pbmdDaGFuZ2USEgoKaXNfYXJyaXZhbBgBIAEoCBIRCglpc19ydW53YXkYAiABKAgSFAoMaXNfZXN0aW1hdGVkGAMgASgIEhYKAmF0GAQgASgLMgouVGltZXN0YW1wIiUKDlRhaWxBc3NpZ25tZW50EhMKC3RhaWxfbnVtYmVyGAEgASgJYgZwcm90bzM", [file_common, file_entities_airline, file_entities_airport]);
 
 /**
  * @generated from message Flight
@@ -38,10 +38,18 @@ export type Flight = Message<"Flight"> & {
   isArchived: boolean;
 
   /**
-   * field 4: [inferred] unknown
-   * field 5: [inferred] unknown
-   * field 6: [inferred] unknown
+   * @generated from field: bool is_mind = 5;
+   */
+  isMind: boolean;
+
+  /**
+   * always 1?
    *
+   * @generated from field: bool unknown_6 = 6;
+   */
+  unknown6: boolean;
+
+  /**
    * [inferred] how flight was added (3=search)
    *
    * @generated from field: int32 import_source = 7;
@@ -49,8 +57,6 @@ export type Flight = Message<"Flight"> & {
   importSource: number;
 
   /**
-   * field 8: [inferred] unknown
-   *
    * @generated from field: string user_id = 9;
    */
   userId: string;
@@ -127,9 +133,13 @@ export type FlightCore = Message<"FlightCore"> & {
   equipment?: Equipment | undefined;
 
   /**
-   * string             callsign     = 8;   // ATC callsign e.g. "CPA356"
-   * field 9: [inferred] unknown (observed 1)
+   * always 1?
    *
+   * @generated from field: bool unknown_9 = 9;
+   */
+  unknown9: boolean;
+
+  /**
    * @generated from field: repeated FlightCore inbound_flights = 10;
    */
   inboundFlights: FlightCore[];
@@ -155,8 +165,6 @@ export type FlightCore = Message<"FlightCore"> & {
   lastUpdated?: Timestamp | undefined;
 
   /**
-   * field 15: [inferred] unknown
-   *
    * e.g. "356" (no airline prefix)
    *
    * @generated from field: string number = 16;
@@ -174,8 +182,6 @@ export type FlightCore = Message<"FlightCore"> & {
   faaTmi?: FaaTmi | undefined;
 
   /**
-   * fields 19–20: [inferred] unknown
-   *
    * @generated from field: string airline_id = 21;
    */
   airlineId: string;
@@ -213,8 +219,11 @@ export type DepartureLeg = Message<"DepartureLeg"> & {
   schedule?: FlightSchedule | undefined;
 
   /**
-   * fields 5–7: [inferred] unknown
-   *
+   * @generated from field: AirportDelays airport_delays = 6;
+   */
+  airportDelays?: AirportDelays | undefined;
+
+  /**
    * check-in desk open/close
    *
    * @generated from field: CheckInSchedule check_in_schedule = 8;
@@ -278,13 +287,28 @@ export type ArrivalLeg = Message<"ArrivalLeg"> & {
   weather?: WeatherInfo | undefined;
 
   /**
-   * fields 8–12: [inferred] unknown
-   * string scheduled_arrival_airport_id = 13;  // original destination Airport.id
-   * string arrival_airport_id           = 14;  // actual destination (differs if diverted)
-   *
    * @generated from field: FlightSchedule schedule = 7;
    */
   schedule?: FlightSchedule | undefined;
+
+  /**
+   * @generated from field: AirportDelays airport_delays = 9;
+   */
+  airportDelays?: AirportDelays | undefined;
+
+  /**
+   * original destination Airport.id
+   *
+   * @generated from field: string scheduled_arrival_airport_id = 13;
+   */
+  scheduledArrivalAirportId: string;
+
+  /**
+   * actual destination (differs if diverted)
+   *
+   * @generated from field: string actual_arrival_airport_id = 14;
+   */
+  actualArrivalAirportId: string;
 };
 
 /**
@@ -391,9 +415,9 @@ export type Equipment = Message<"Equipment"> & {
   age: number;
 
   /**
-   * @generated from field: string unknown_9 = 9;
+   * @generated from field: string name = 9;
    */
-  unknown9: string;
+  name: string;
 
   /**
    * 2-letter e.g. "HK"
@@ -436,14 +460,44 @@ export const EquipmentSchema: GenMessage<Equipment> = /*@__PURE__*/
  */
 export type DelayForecast = Message<"DelayForecast"> & {
   /**
-   * @generated from field: int32 observations = 1;
+   * @generated from field: int32 early = 1;
    */
-  observations: number;
+  early: number;
 
   /**
-   * @generated from field: int32 delay_mean_minutes = 2;
+   * @generated from field: int32 on_time = 2;
    */
-  delayMeanMinutes: number;
+  onTime: number;
+
+  /**
+   * @generated from field: int32 late_15m = 3;
+   */
+  late15m: number;
+
+  /**
+   * @generated from field: int32 late_30m = 4;
+   */
+  late30m: number;
+
+  /**
+   * @generated from field: int32 late_45m_or_more = 5;
+   */
+  late45mOrMore: number;
+
+  /**
+   * @generated from field: int32 canceled = 6;
+   */
+  canceled: number;
+
+  /**
+   * @generated from field: int32 diverted = 7;
+   */
+  diverted: number;
+
+  /**
+   * @generated from field: int32 mean_minutes = 8;
+   */
+  meanMinutes: number;
 };
 
 /**
@@ -475,7 +529,7 @@ export type FaaTmi = Message<"FaaTmi"> & {
   end?: Timestamp | undefined;
 
   /**
-   * e.g. "Weather", "Volume"
+   * e.g. "weather", "volume"
    *
    * @generated from field: string reason = 4;
    */
@@ -526,6 +580,16 @@ export type FlightSchedule = Message<"FlightSchedule"> & {
   runwayActual?: Timestamp | undefined;
 
   /**
+   * @generated from field: InitialGateTimeAlt initial_gate_time_3 = 7;
+   */
+  initialGateTime3?: InitialGateTimeAlt | undefined;
+
+  /**
+   * @generated from field: InitialGateTime initial_gate_time_2 = 8;
+   */
+  initialGateTime2?: InitialGateTime | undefined;
+
+  /**
    * @generated from field: Timestamp initial_gate_time = 10;
    */
   initialGateTime?: Timestamp | undefined;
@@ -537,6 +601,74 @@ export type FlightSchedule = Message<"FlightSchedule"> & {
  */
 export const FlightScheduleSchema: GenMessage<FlightSchedule> = /*@__PURE__*/
   messageDesc(file_entities_flight, 8);
+
+/**
+ * @generated from message InitialGateTimeAlt
+ */
+export type InitialGateTimeAlt = Message<"InitialGateTimeAlt"> & {
+  /**
+   * @generated from field: InitialGateTime value = 8;
+   */
+  value?: InitialGateTime | undefined;
+};
+
+/**
+ * Describes the message InitialGateTimeAlt.
+ * Use `create(InitialGateTimeAltSchema)` to create a new message.
+ */
+export const InitialGateTimeAltSchema: GenMessage<InitialGateTimeAlt> = /*@__PURE__*/
+  messageDesc(file_entities_flight, 9);
+
+/**
+ * @generated from message InitialGateTime
+ */
+export type InitialGateTime = Message<"InitialGateTime"> & {
+  /**
+   * @generated from field: Timestamp value = 10;
+   */
+  value?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message InitialGateTime.
+ * Use `create(InitialGateTimeSchema)` to create a new message.
+ */
+export const InitialGateTimeSchema: GenMessage<InitialGateTime> = /*@__PURE__*/
+  messageDesc(file_entities_flight, 10);
+
+/**
+ * @generated from message AirportDelays
+ */
+export type AirportDelays = Message<"AirportDelays"> & {
+  /**
+   * @generated from field: int32 average_delay_minutes = 1;
+   */
+  averageDelayMinutes: number;
+
+  /**
+   * @generated from field: Timestamp expiration_time = 3;
+   */
+  expirationTime?: Timestamp | undefined;
+
+  /**
+   * 0=increasing, 1=decreasing
+   *
+   * @generated from field: int32 trend = 4;
+   */
+  trend: number;
+
+  /**
+   * @generated from field: Timestamp last_updated = 5;
+   */
+  lastUpdated?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message AirportDelays.
+ * Use `create(AirportDelaysSchema)` to create a new message.
+ */
+export const AirportDelaysSchema: GenMessage<AirportDelays> = /*@__PURE__*/
+  messageDesc(file_entities_flight, 11);
 
 /**
  * @generated from message CheckInSchedule
@@ -558,7 +690,7 @@ export type CheckInSchedule = Message<"CheckInSchedule"> & {
  * Use `create(CheckInScheduleSchema)` to create a new message.
  */
 export const CheckInScheduleSchema: GenMessage<CheckInSchedule> = /*@__PURE__*/
-  messageDesc(file_entities_flight, 9);
+  messageDesc(file_entities_flight, 12);
 
 /**
  * @generated from message WeatherInfo
@@ -622,7 +754,7 @@ export type WeatherInfo = Message<"WeatherInfo"> & {
  * Use `create(WeatherInfoSchema)` to create a new message.
  */
 export const WeatherInfoSchema: GenMessage<WeatherInfo> = /*@__PURE__*/
-  messageDesc(file_entities_flight, 10);
+  messageDesc(file_entities_flight, 13);
 
 /**
  * @generated from message WeatherWarning
@@ -653,7 +785,7 @@ export type WeatherWarning = Message<"WeatherWarning"> & {
  * Use `create(WeatherWarningSchema)` to create a new message.
  */
 export const WeatherWarningSchema: GenMessage<WeatherWarning> = /*@__PURE__*/
-  messageDesc(file_entities_flight, 11);
+  messageDesc(file_entities_flight, 14);
 
 /**
  * @generated from message FlightEvent
@@ -703,7 +835,7 @@ export type FlightEvent = Message<"FlightEvent"> & {
  * Use `create(FlightEventSchema)` to create a new message.
  */
 export const FlightEventSchema: GenMessage<FlightEvent> = /*@__PURE__*/
-  messageDesc(file_entities_flight, 12);
+  messageDesc(file_entities_flight, 15);
 
 /**
  * @generated from message BaggageBeltChange
@@ -720,7 +852,7 @@ export type BaggageBeltChange = Message<"BaggageBeltChange"> & {
  * Use `create(BaggageBeltChangeSchema)` to create a new message.
  */
 export const BaggageBeltChangeSchema: GenMessage<BaggageBeltChange> = /*@__PURE__*/
-  messageDesc(file_entities_flight, 13);
+  messageDesc(file_entities_flight, 16);
 
 /**
  * @generated from message OoiEvent
@@ -744,7 +876,7 @@ export type OoiEvent = Message<"OoiEvent"> & {
  * Use `create(OoiEventSchema)` to create a new message.
  */
 export const OoiEventSchema: GenMessage<OoiEvent> = /*@__PURE__*/
-  messageDesc(file_entities_flight, 14);
+  messageDesc(file_entities_flight, 17);
 
 /**
  * @generated from message GateChange
@@ -771,7 +903,7 @@ export type GateChange = Message<"GateChange"> & {
  * Use `create(GateChangeSchema)` to create a new message.
  */
 export const GateChangeSchema: GenMessage<GateChange> = /*@__PURE__*/
-  messageDesc(file_entities_flight, 15);
+  messageDesc(file_entities_flight, 18);
 
 /**
  * @generated from message TimingChange
@@ -783,14 +915,14 @@ export type TimingChange = Message<"TimingChange"> & {
   isArrival: boolean;
 
   /**
-   * @generated from field: bool is_estimated = 2;
+   * @generated from field: bool is_runway = 2;
    */
-  isEstimated: boolean;
+  isRunway: boolean;
 
   /**
-   * @generated from field: bool unknown_3 = 3;
+   * @generated from field: bool is_estimated = 3;
    */
-  unknown3: boolean;
+  isEstimated: boolean;
 
   /**
    * @generated from field: Timestamp at = 4;
@@ -803,7 +935,7 @@ export type TimingChange = Message<"TimingChange"> & {
  * Use `create(TimingChangeSchema)` to create a new message.
  */
 export const TimingChangeSchema: GenMessage<TimingChange> = /*@__PURE__*/
-  messageDesc(file_entities_flight, 16);
+  messageDesc(file_entities_flight, 19);
 
 /**
  * @generated from message TailAssignment
@@ -820,5 +952,5 @@ export type TailAssignment = Message<"TailAssignment"> & {
  * Use `create(TailAssignmentSchema)` to create a new message.
  */
 export const TailAssignmentSchema: GenMessage<TailAssignment> = /*@__PURE__*/
-  messageDesc(file_entities_flight, 17);
+  messageDesc(file_entities_flight, 20);
 
