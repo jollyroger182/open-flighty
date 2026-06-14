@@ -4,6 +4,7 @@ import { SearchRequestSchema, SearchResponseSchema } from './gen/services/search
 import { DataStore } from './store'
 import { filter, getJwtPayload, map } from './utils'
 import { Airline, Flight, User } from './resources'
+import { InviteResponseSchema } from './gen/services/invite_pb'
 
 interface FlightyOptions {
 	token: string
@@ -132,6 +133,13 @@ export class Flighty {
 
 	airline(id: string) {
 		return new Airline(this, id)
+	}
+
+	async invite() {
+		return this.protoRequest('https://api.flightyapp.com/v1/connected-friends/invite-links', {
+			method: 'POST',
+			schema: InviteResponseSchema,
+		})
 	}
 
 	async request(url: string | URL, options: RequestInit = {}) {
