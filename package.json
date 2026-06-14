@@ -1,11 +1,29 @@
 {
 	"name": "open-flighty",
-	"module": "index.ts",
+	"version": "0.1.0",
 	"type": "module",
 	"scripts": {
 		"check": "tsc --noEmit",
 		"gen": "rm -rf src/gen && buf generate",
-		"build": "bun ./scripts/build.ts"
+		"build": "bun ./scripts/build.ts",
+		"prepublishOnly": "bun run build"
+	},
+	"files": [
+		"index.ts",
+		"src",
+		"dist"
+	],
+	"main": "./dist/cjs/index.js",
+	"module": "./dist/esm/index.js",
+	"types": "./index.ts",
+	"exports": {
+		".": {
+			"types": "./index.ts",
+			"bun": "./index.ts",
+			"import": "./dist/esm/index.js",
+			"require": "./dist/cjs/index.js",
+			"default": "./dist/esm/index.js"
+		}
 	},
 	"devDependencies": {
 		"@bufbuild/buf": "^1.69.0",
