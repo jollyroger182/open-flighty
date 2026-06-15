@@ -4,10 +4,12 @@
 
 import type { GenFile, GenMessage } from "@bufbuild/protobuf/codegenv2";
 import { fileDesc, messageDesc } from "@bufbuild/protobuf/codegenv2";
-import type { Airline } from "./entities/airline_pb";
-import { file_entities_airline } from "./entities/airline_pb";
 import type { Airport } from "./entities/airport_pb";
 import { file_entities_airport } from "./entities/airport_pb";
+import type { Airline } from "./entities/airline_pb";
+import { file_entities_airline } from "./entities/airline_pb";
+import type { Sharing } from "./entities/sharing_pb";
+import { file_entities_sharing } from "./entities/sharing_pb";
 import type { Connection } from "./entities/connection_pb";
 import { file_entities_connection } from "./entities/connection_pb";
 import type { Profile } from "./entities/profile_pb";
@@ -26,7 +28,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file entity.proto.
  */
 export const file_entity: GenFile = /*@__PURE__*/
-  fileDesc("CgxlbnRpdHkucHJvdG8i2AEKBkVudGl0eRIZCgdhaXJwb3J0GAEgASgLMgguQWlycG9ydBIZCgdhaXJsaW5lGAIgASgLMgguQWlybGluZRIfCgpjb25uZWN0aW9uGAUgASgLMgsuQ29ubmVjdGlvbhIZCgdwcm9maWxlGAggASgLMgguUHJvZmlsZRIXCgZ0aWNrZXQYDCABKAsyBy5UaWNrZXQSFwoGZmxpZ2h0GA8gASgLMgcuRmxpZ2h0EhMKBGNpdHkYEyABKAsyBS5DaXR5EhUKBW1vZGVsGBYgASgLMgYuTW9kZWxiBnByb3RvMw", [file_entities_airline, file_entities_airport, file_entities_connection, file_entities_profile, file_entities_ticket, file_entities_flight, file_entities_city, file_entities_model]);
+  fileDesc("CgxlbnRpdHkucHJvdG8i8wEKBkVudGl0eRIZCgdhaXJwb3J0GAEgASgLMgguQWlycG9ydBIZCgdhaXJsaW5lGAIgASgLMgguQWlybGluZRIZCgdzaGFyaW5nGAQgASgLMgguU2hhcmluZxIfCgpjb25uZWN0aW9uGAUgASgLMgsuQ29ubmVjdGlvbhIZCgdwcm9maWxlGAggASgLMgguUHJvZmlsZRIXCgZ0aWNrZXQYDCABKAsyBy5UaWNrZXQSFwoGZmxpZ2h0GA8gASgLMgcuRmxpZ2h0EhMKBGNpdHkYEyABKAsyBS5DaXR5EhUKBW1vZGVsGBYgASgLMgYuTW9kZWxiBnByb3RvMw", [file_entities_airport, file_entities_airline, file_entities_sharing, file_entities_connection, file_entities_profile, file_entities_ticket, file_entities_flight, file_entities_city, file_entities_model]);
 
 /**
  * @generated from message Entity
@@ -41,6 +43,11 @@ export type Entity = Message<"Entity"> & {
    * @generated from field: Airline airline = 2;
    */
   airline?: Airline | undefined;
+
+  /**
+   * @generated from field: Sharing sharing = 4;
+   */
+  sharing?: Sharing | undefined;
 
   /**
    * @generated from field: Connection connection = 5;

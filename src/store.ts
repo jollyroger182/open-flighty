@@ -1,7 +1,7 @@
-import { create, fromBinary, toBinary } from '@bufbuild/protobuf'
+import { create, fromBinary, toBinary, type MessageInitShape } from '@bufbuild/protobuf'
 import { FlightyError } from './error'
 import type { Flighty } from './flighty'
-import { DataStorageSchema, type DataStorage } from './gen/custom/store_pb'
+import { DataStorageSchema } from './gen/custom/store_pb'
 import type { Airline } from './gen/entities/airline_pb'
 import type { Airport } from './gen/entities/airport_pb'
 import type { City } from './gen/entities/city_pb'
@@ -9,6 +9,7 @@ import type { Connection } from './gen/entities/connection_pb'
 import type { Flight } from './gen/entities/flight_pb'
 import type { Model } from './gen/entities/model_pb'
 import type { Profile } from './gen/entities/profile_pb'
+import type { Sharing } from './gen/entities/sharing_pb'
 import type { Ticket } from './gen/entities/ticket_pb'
 import { type Entity } from './gen/entity_pb'
 import { SyncRequestSchema, SyncResponseSchema } from './gen/services/sync_pb'
@@ -22,6 +23,7 @@ export class DataStore {
 	tickets = new Map<string, Ticket>()
 	cities = new Map<string, City>()
 	models = new Map<string, Model>()
+	sharing = new Map<string, Sharing>()
 
 	private syncUrl?: string
 	#syncChain: Promise<void> = Promise.resolve()
@@ -75,10 +77,11 @@ export class DataStore {
 				this.cities.set(item.city.id, item.city)
 			} else if (item.model) {
 				this.models.set(item.model.id, item.model)
+			} else if (item.sharing) {
+				this.sharing.set(item.sharing.id, item.sharing)
 			}
 			// unhandled entity types:
 			// 3 = friend added
-			// 4 = flight sharing
 			// 10 = ???
 			// 14 = session info?
 			// 16 = login info?
@@ -89,10 +92,8 @@ export class DataStore {
 	}
 
 	serialize(): Buffer {
-		const storage: DataStorage = {
-			$typeName: 'DataStorage',
+		const storage: MessageInitShape<typeof DataStorageSchema> = {
 			v1: {
-				$typeName: 'DataStorageV1',
 				entities: [
 					...toEntities(this.airlines, 'airline'),
 					...toEntities(this.airports, 'airport'),
@@ -102,11 +103,12 @@ export class DataStore {
 					...toEntities(this.tickets, 'ticket'),
 					...toEntities(this.cities, 'city'),
 					...toEntities(this.models, 'model'),
+					...toEntities(this.sharing, 'sharing'),
 				],
 				syncUrl: this.syncUrl || '',
 			},
 		}
-		return Buffer.from(toBinary(DataStorageSchema, storage))
+		return Buffer.from(toBinary(DataStorageSchema, create(DataStorageSchema, storage)))
 	}
 
 	static deserialize(data: Buffer | ArrayBuffer) {

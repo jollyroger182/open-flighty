@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import "common.proto";
+import "entities/profile.proto";
+
+message Sharing {
+  string    id              = 1;
+  string    sharer_id       = 2;
+  Profile   sharer          = 3;
+  string    sharer_id_v2    = 4;
+  string    recipient_id    = 5;
+  Profile   recipient       = 6;
+  string    recipient_id_v2 = 7;
+  bool      is_paused       = 8;
+  string    recipient_name  = 9;
+  string    sharer_name     = 10;
+  Timestamp created_at      = 11;
+  Timestamp updated_at      = 12;
+  Timestamp deleted_at      = 13;
+}
