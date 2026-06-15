@@ -1,4 +1,5 @@
 import type { Flighty } from '../flighty'
+import { toTimestamp } from '../utils'
 
 export class User {
 	#id: string
@@ -31,7 +32,7 @@ export class User {
 		return sharing && !sharing.isPaused && !sharing.deletedAt
 	}
 
-	get isShared() {
+	get isSharing() {
 		const sharing = this.app.store.sharing.get(`${this.app.me.id}.${this.id}`)
 		return sharing && !sharing.isPaused && !sharing.deletedAt
 	}
@@ -39,5 +40,14 @@ export class User {
 	get isFriend() {
 		const sharing = this.app.store.sharing.get(`${this.app.me.id}.${this.id}`)
 		return sharing && !sharing.deletedAt
+	}
+
+	async setSharing(isSharing: boolean = true) {
+		await this.app.sync({
+			syncUpdate: {
+				timestamp: toTimestamp(),
+				updateSharing: { userId: this.#id, isPaused: !isSharing },
+			},
+		})
 	}
 }

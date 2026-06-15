@@ -12,7 +12,7 @@ import type { Profile } from './gen/entities/profile_pb'
 import type { Sharing } from './gen/entities/sharing_pb'
 import type { Ticket } from './gen/entities/ticket_pb'
 import { EntitySchema, type Entity } from './gen/entity_pb'
-import { SyncRequestSchema, SyncResponseSchema } from './gen/services/sync_pb'
+import { SyncRequestSchema, SyncResponseSchema, type SyncRequest } from './gen/services/sync_pb'
 
 export class DataStore {
 	airlines = new Map<string, Airline>()
@@ -30,13 +30,18 @@ export class DataStore {
 
 	constructor() {}
 
-	sync(client: Flighty) {
-		return (this.#syncChain = this.#syncChain.then(() => this.#sync(client)))
+	sync(client: Flighty, payload?: MessageInitShape<typeof SyncRequestSchema>) {
+		return (this.#syncChain = this.#syncChain.then(() => this.#sync(client, payload)))
 	}
 
-	async #sync(client: Flighty): Promise<void> {
-		const request = create(SyncRequestSchema, {})
+	async #sync(
+		client: Flighty,
+		payload?: MessageInitShape<typeof SyncRequestSchema>,
+	): Promise<void> {
+		const request = create(SyncRequestSchema, payload || {})
 		const body = toBinary(SyncRequestSchema, request)
+
+		console.log(toBinary(SyncRequestSchema, request).toHex())
 
 		const url = new URL(this.syncUrl ?? 'https://api.flightyapp.com/v1/sync/full')
 		url.searchParams.set('fast_flight_sync', 'true')

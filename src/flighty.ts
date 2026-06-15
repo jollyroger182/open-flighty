@@ -1,10 +1,17 @@
-import { create, fromBinary, toBinary, type DescMessage } from '@bufbuild/protobuf'
+import {
+	create,
+	fromBinary,
+	toBinary,
+	type DescMessage,
+	type MessageInitShape,
+} from '@bufbuild/protobuf'
 import { FlightyError, FlightyRequestError } from './error'
+import { InviteResponseSchema } from './gen/services/invite_pb'
 import { SearchRequestSchema, SearchResponseSchema } from './gen/services/search_pb'
+import type { SyncRequestSchema } from './gen/services/sync_pb'
+import { Airline, Flight, User } from './resources'
 import { DataStore } from './store'
 import { filter, getJwtPayload, map } from './utils'
-import { Airline, Flight, User } from './resources'
-import { InviteResponseSchema } from './gen/services/invite_pb'
 
 interface FlightyOptions {
 	token: string
@@ -104,8 +111,8 @@ export class Flighty {
 		})
 	}
 
-	sync() {
-		return this.store.sync(this)
+	sync(payload?: MessageInitShape<typeof SyncRequestSchema>) {
+		return this.store.sync(this, payload)
 	}
 
 	flights(params?: GetFlightParams) {

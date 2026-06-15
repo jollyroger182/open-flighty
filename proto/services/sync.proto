@@ -3,7 +3,19 @@ syntax = "proto3";
 import "common.proto";
 import "entity.proto";
 
-message SyncRequest {}
+message SyncRequest {
+  SyncUpdate sync_update = 1;
+}
+
+message SyncUpdate {
+  Timestamp     timestamp      = 1;
+  UpdateSharing update_sharing = 7;
+}
+
+message UpdateSharing {
+  string user_id   = 1;
+  bool   is_paused = 2;
+}
 
 message SyncResponse {
   Pagination      pagination = 1;

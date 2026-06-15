@@ -4,7 +4,7 @@
 
 import type { GenFile, GenMessage } from "@bufbuild/protobuf/codegenv2";
 import { fileDesc, messageDesc } from "@bufbuild/protobuf/codegenv2";
-import type { Pagination } from "../common_pb";
+import type { Pagination, Timestamp } from "../common_pb";
 import { file_common } from "../common_pb";
 import type { Entity } from "../entity_pb";
 import { file_entity } from "../entity_pb";
@@ -14,12 +14,16 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file services/sync.proto.
  */
 export const file_services_sync: GenFile = /*@__PURE__*/
-  fileDesc("ChNzZXJ2aWNlcy9zeW5jLnByb3RvIg0KC1N5bmNSZXF1ZXN0IkcKDFN5bmNSZXNwb25zZRIfCgpwYWdpbmF0aW9uGAEgASgLMgsuUGFnaW5hdGlvbhIWCgVpdGVtcxgCIAMoCzIHLkVudGl0eWIGcHJvdG8z", [file_common, file_entity]);
+  fileDesc("ChNzZXJ2aWNlcy9zeW5jLnByb3RvIi8KC1N5bmNSZXF1ZXN0EiAKC3N5bmNfdXBkYXRlGAEgASgLMgsuU3luY1VwZGF0ZSJTCgpTeW5jVXBkYXRlEh0KCXRpbWVzdGFtcBgBIAEoCzIKLlRpbWVzdGFtcBImCg51cGRhdGVfc2hhcmluZxgHIAEoCzIOLlVwZGF0ZVNoYXJpbmciMwoNVXBkYXRlU2hhcmluZxIPCgd1c2VyX2lkGAEgASgJEhEKCWlzX3BhdXNlZBgCIAEoCCJHCgxTeW5jUmVzcG9uc2USHwoKcGFnaW5hdGlvbhgBIAEoCzILLlBhZ2luYXRpb24SFgoFaXRlbXMYAiADKAsyBy5FbnRpdHliBnByb3RvMw", [file_common, file_entity]);
 
 /**
  * @generated from message SyncRequest
  */
 export type SyncRequest = Message<"SyncRequest"> & {
+  /**
+   * @generated from field: SyncUpdate sync_update = 1;
+   */
+  syncUpdate?: SyncUpdate | undefined;
 };
 
 /**
@@ -28,6 +32,50 @@ export type SyncRequest = Message<"SyncRequest"> & {
  */
 export const SyncRequestSchema: GenMessage<SyncRequest> = /*@__PURE__*/
   messageDesc(file_services_sync, 0);
+
+/**
+ * @generated from message SyncUpdate
+ */
+export type SyncUpdate = Message<"SyncUpdate"> & {
+  /**
+   * @generated from field: Timestamp timestamp = 1;
+   */
+  timestamp?: Timestamp | undefined;
+
+  /**
+   * @generated from field: UpdateSharing update_sharing = 7;
+   */
+  updateSharing?: UpdateSharing | undefined;
+};
+
+/**
+ * Describes the message SyncUpdate.
+ * Use `create(SyncUpdateSchema)` to create a new message.
+ */
+export const SyncUpdateSchema: GenMessage<SyncUpdate> = /*@__PURE__*/
+  messageDesc(file_services_sync, 1);
+
+/**
+ * @generated from message UpdateSharing
+ */
+export type UpdateSharing = Message<"UpdateSharing"> & {
+  /**
+   * @generated from field: string user_id = 1;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: bool is_paused = 2;
+   */
+  isPaused: boolean;
+};
+
+/**
+ * Describes the message UpdateSharing.
+ * Use `create(UpdateSharingSchema)` to create a new message.
+ */
+export const UpdateSharingSchema: GenMessage<UpdateSharing> = /*@__PURE__*/
+  messageDesc(file_services_sync, 2);
 
 /**
  * @generated from message SyncResponse
@@ -49,5 +97,5 @@ export type SyncResponse = Message<"SyncResponse"> & {
  * Use `create(SyncResponseSchema)` to create a new message.
  */
 export const SyncResponseSchema: GenMessage<SyncResponse> = /*@__PURE__*/
-  messageDesc(file_services_sync, 1);
+  messageDesc(file_services_sync, 3);
 
