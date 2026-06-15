@@ -119,8 +119,11 @@ export class Flighty {
 		)
 	}
 
-	friends() {
-		return filter(this.store.profiles.values(), (f) => f.id !== this.userId)
+	get friends() {
+		return filter(
+			map(this.store.profiles.values(), (profile) => new User(this, profile.id)),
+			(user) => user.isFriend,
+		)
 	}
 
 	get me() {

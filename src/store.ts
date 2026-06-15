@@ -11,7 +11,7 @@ import type { Model } from './gen/entities/model_pb'
 import type { Profile } from './gen/entities/profile_pb'
 import type { Sharing } from './gen/entities/sharing_pb'
 import type { Ticket } from './gen/entities/ticket_pb'
-import { type Entity } from './gen/entity_pb'
+import { EntitySchema, type Entity } from './gen/entity_pb'
 import { SyncRequestSchema, SyncResponseSchema } from './gen/services/sync_pb'
 
 export class DataStore {
@@ -78,11 +78,12 @@ export class DataStore {
 			} else if (item.model) {
 				this.models.set(item.model.id, item.model)
 			} else if (item.sharing) {
-				this.sharing.set(item.sharing.id, item.sharing)
+				this.sharing.set(`${item.sharing.sharerId}.${item.sharing.recipientId}`, item.sharing)
 			}
 			// unhandled entity types:
 			// 3 = friend added
 			// 10 = ???
+			// 11 = user id?
 			// 14 = session info?
 			// 16 = login info?
 			// 17 = ???, just a boolean and created/updated
