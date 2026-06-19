@@ -8,10 +8,11 @@ import {
 import { FlightyError, FlightyRequestError } from './error'
 import { InviteResponseSchema } from './gen/services/invite_pb'
 import { SearchRequestSchema, SearchResponseSchema } from './gen/services/search_pb'
-import type { SyncRequestSchema } from './gen/services/sync_pb'
+import type { SyncRequestSchema, SyncUpdateSchema } from './gen/services/sync_pb'
 import { Airline, Flight, User } from './resources'
 import { DataStore } from './store'
-import { filter, getJwtPayload, map } from './utils'
+import { filter, getJwtPayload, map, toTimestamp } from './utils'
+import { FlightSchema } from './gen/entities/flight_pb'
 
 interface FlightyOptions {
 	token: string
@@ -24,6 +25,7 @@ type SearchRouteEndpoint = { airport: string; city?: never } | { airport?: never
 interface GetFlightParams {
 	includeDeleted?: boolean
 	includeFriends?: boolean
+	includeArchived?: boolean
 }
 
 export class Flighty {
@@ -115,11 +117,16 @@ export class Flighty {
 		return this.store.sync(this, payload)
 	}
 
+	syncUpdate(payload: MessageInitShape<typeof SyncUpdateSchema>) {
+		return this.sync({ syncUpdate: { ...payload, $typeName: undefined, timestamp: toTimestamp() } })
+	}
+
 	flights(params?: GetFlightParams) {
 		return map(
 			filter(this.store.flights.values(), (f) => {
 				if (!params?.includeDeleted && f.deletedAt) return false
-				if (!params?.includeFriends && f.userId !== this.userId) return false
+				if (!params?.includeFriends && (!f.isMine || !f.isUsersFlight)) return false
+				if (!params?.includeArchived && f.isArchived) return false
 				return true
 			}),
 			(f) => new Flight(this, f.id),
@@ -141,6 +148,10 @@ export class Flighty {
 		return new User(this, id)
 	}
 
+	get airlines() {
+		return map(this.store.airlines.values(), (a) => new Airline(this, a.id))
+	}
+
 	airline(id: string) {
 		return new Airline(this, id)
 	}
@@ -150,6 +161,18 @@ export class Flighty {
 			method: 'POST',
 			schema: InviteResponseSchema,
 		})
+	}
+
+	async randomFlight() {
+		const resp = await this.protoRequest(
+			'https://api.flightyapp.com/v1/flight/random/subscribe?is_passenger=false',
+			{
+				method: 'POST',
+				schema: FlightSchema,
+			},
+		)
+		await this.sync()
+		return new Flight(this, resp.id)
 	}
 
 	async request(url: string | URL, options: RequestInit = {}) {

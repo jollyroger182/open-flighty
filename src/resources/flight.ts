@@ -53,6 +53,10 @@ export class Flight {
 			throw new FlightyError('No arrival time found')
 		}
 	}
+
+	async delete() {
+		await this.app.syncUpdate({ deleteFlight: { id: this.id } })
+	}
 }
 
 function getTimeFromSchedule(schedule: FlightSchedule) {

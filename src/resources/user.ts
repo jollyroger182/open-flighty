@@ -1,5 +1,4 @@
 import type { Flighty } from '../flighty'
-import { toTimestamp } from '../utils'
 
 export class User {
 	#id: string
@@ -43,11 +42,8 @@ export class User {
 	}
 
 	async setSharing(isSharing: boolean = true) {
-		await this.app.sync({
-			syncUpdate: {
-				timestamp: toTimestamp(),
-				updateSharing: { userId: this.#id, isPaused: !isSharing },
-			},
+		await this.app.syncUpdate({
+			updateSharing: { userId: this.#id, isPaused: !isSharing },
 		})
 	}
 }

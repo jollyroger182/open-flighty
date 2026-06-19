@@ -5,17 +5,18 @@ import "entities/airline.proto";
 import "entities/airport.proto";
 
 message Flight {
-  string     id            = 1;
-  FlightCore core          = 2;
-  bool       is_archived   = 3;
-  bool       is_mind       = 5;
-  bool       unknown_6     = 6;   // always 1?
-  int32      import_source = 7;   // [inferred] how flight was added (3=search)
-  string     user_id       = 9;
-  string     sharing_url   = 10;
-  Timestamp  created_at    = 11;  // has nanos
-  Timestamp  updated_at    = 12;  // has nanos
-  Timestamp  deleted_at    = 13;
+  string     id              = 1;
+  FlightCore core            = 2;
+  bool       is_archived     = 3;
+  bool       is_mine         = 4;   // flight is under my account (might be friend's flight though)
+  bool       is_users_flight = 5;   // is not added as friend's flight by the user
+  bool       unknown_6       = 6;   // always 1?
+  int32      unknown_7       = 7;   // always 3?
+  string     user_id         = 9;
+  string     sharing_url     = 10;
+  Timestamp  created_at      = 11;  // has nanos
+  Timestamp  updated_at      = 12;  // has nanos
+  Timestamp  deleted_at      = 13;
 }
 
 message FlightCore {

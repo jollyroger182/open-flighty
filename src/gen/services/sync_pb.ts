@@ -14,7 +14,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file services/sync.proto.
  */
 export const file_services_sync: GenFile = /*@__PURE__*/
-  fileDesc("ChNzZXJ2aWNlcy9zeW5jLnByb3RvIi8KC1N5bmNSZXF1ZXN0EiAKC3N5bmNfdXBkYXRlGAEgASgLMgsuU3luY1VwZGF0ZSJTCgpTeW5jVXBkYXRlEh0KCXRpbWVzdGFtcBgBIAEoCzIKLlRpbWVzdGFtcBImCg51cGRhdGVfc2hhcmluZxgHIAEoCzIOLlVwZGF0ZVNoYXJpbmciMwoNVXBkYXRlU2hhcmluZxIPCgd1c2VyX2lkGAEgASgJEhEKCWlzX3BhdXNlZBgCIAEoCCJHCgxTeW5jUmVzcG9uc2USHwoKcGFnaW5hdGlvbhgBIAEoCzILLlBhZ2luYXRpb24SFgoFaXRlbXMYAiADKAsyBy5FbnRpdHliBnByb3RvMw", [file_common, file_entity]);
+  fileDesc("ChNzZXJ2aWNlcy9zeW5jLnByb3RvIi8KC1N5bmNSZXF1ZXN0EiAKC3N5bmNfdXBkYXRlGAEgASgLMgsuU3luY1VwZGF0ZSJ5CgpTeW5jVXBkYXRlEh0KCXRpbWVzdGFtcBgBIAEoCzIKLlRpbWVzdGFtcBImCg51cGRhdGVfc2hhcmluZxgHIAEoCzIOLlVwZGF0ZVNoYXJpbmcSJAoNZGVsZXRlX2ZsaWdodBgLIAEoCzINLkRlbGV0ZUZsaWdodCIzCg1VcGRhdGVTaGFyaW5nEg8KB3VzZXJfaWQYASABKAkSEQoJaXNfcGF1c2VkGAIgASgIIhoKDERlbGV0ZUZsaWdodBIKCgJpZBgBIAEoCSJHCgxTeW5jUmVzcG9uc2USHwoKcGFnaW5hdGlvbhgBIAEoCzILLlBhZ2luYXRpb24SFgoFaXRlbXMYAiADKAsyBy5FbnRpdHliBnByb3RvMw", [file_common, file_entity]);
 
 /**
  * @generated from message SyncRequest
@@ -46,6 +46,11 @@ export type SyncUpdate = Message<"SyncUpdate"> & {
    * @generated from field: UpdateSharing update_sharing = 7;
    */
   updateSharing?: UpdateSharing | undefined;
+
+  /**
+   * @generated from field: DeleteFlight delete_flight = 11;
+   */
+  deleteFlight?: DeleteFlight | undefined;
 };
 
 /**
@@ -78,6 +83,23 @@ export const UpdateSharingSchema: GenMessage<UpdateSharing> = /*@__PURE__*/
   messageDesc(file_services_sync, 2);
 
 /**
+ * @generated from message DeleteFlight
+ */
+export type DeleteFlight = Message<"DeleteFlight"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+};
+
+/**
+ * Describes the message DeleteFlight.
+ * Use `create(DeleteFlightSchema)` to create a new message.
+ */
+export const DeleteFlightSchema: GenMessage<DeleteFlight> = /*@__PURE__*/
+  messageDesc(file_services_sync, 3);
+
+/**
  * @generated from message SyncResponse
  */
 export type SyncResponse = Message<"SyncResponse"> & {
@@ -97,5 +119,5 @@ export type SyncResponse = Message<"SyncResponse"> & {
  * Use `create(SyncResponseSchema)` to create a new message.
  */
 export const SyncResponseSchema: GenMessage<SyncResponse> = /*@__PURE__*/
-  messageDesc(file_services_sync, 3);
+  messageDesc(file_services_sync, 4);
 

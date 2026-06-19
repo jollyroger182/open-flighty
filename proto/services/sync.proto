@@ -10,11 +10,16 @@ message SyncRequest {
 message SyncUpdate {
   Timestamp     timestamp      = 1;
   UpdateSharing update_sharing = 7;
+  DeleteFlight  delete_flight  = 11;
 }
 
 message UpdateSharing {
   string user_id   = 1;
   bool   is_paused = 2;
+}
+
+message DeleteFlight {
+  string id = 1;
 }
 
 message SyncResponse {
